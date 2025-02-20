@@ -12,7 +12,7 @@ A guide for creating bash scripts for both Windows and Linux.
 A guide for writing good markdown files.
 
 # LaTex
-A style guide and theme for writing different types of documents in LaTex.
+A style guide and theme for writing different types of documents and plugins in LaTex.
 
 # Javascript
 A style guide for Javascript.
@@ -28,3 +28,6 @@ A style guide for C++.
 
 # Python
 A style guide for Python.
+
+# Docker
+A style guide for Docker images and development
