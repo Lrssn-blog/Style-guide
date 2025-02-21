@@ -14,6 +14,7 @@ A editorconfig will make sure every editor behaves the same. What every editorco
 - charset: While there is a argument for using UTF-16 we will stick to UTF-8 due to using less memory. 
 - trim_trailing_whitespace: The preffered style is true.
 - insert_final_newline: The preffered style is true.
+- max_line_length: The preffered value is 80
 - root: Set to true unless there are other editorconfigs in the repository.
 
 These may look different depending on the language but a example is included in this repository
