@@ -4,9 +4,10 @@
 
 # Repository
 ## Documents
-Every repository should have all the following documents, even if they are empty.
+Every repository should have most the following documents, even if they are empty. 
 ### .editorconfig
-A editorconfig will make sure every editor behaves the same. What every editorconfig should include are.
+A editorconfig will make sure every editor behaves the same. For more information see [editorconfig.org](https://editorconfig.org/). 
+What every editorconfig should include are:
 - indent_style: The preffered style is tabs.
 - indent_size: The preffered size is 4.
 - tab_width: This should match the indent_size.
@@ -20,9 +21,22 @@ A editorconfig will make sure every editor behaves the same. What every editorco
 These may look different depending on the language but a example is included in this repository
 ### .gitattributes
 ### .gitignore
+Ignored files are usually build artifacts and machine generated files that can be derived from your repository source or should otherwise not be committed. Some common examples are:
 
+- dependency caches, such as the contents of /node_modules or /packages
+- compiled code, such as .o, .exe, and .dll files
+- Output directories, such as /bin, /out and /build
+- Target files generated at runtime, such as .log, .lock, or .tmp
+- Hidden system files, such as .DS_Store or Thumbs.db
+- Personal IDE config files, such as .idea/workspace.xml
+- Environment variables that are dependent on the runtime system
+- Secrets such as API-keys and database passwords
+
+These will look different depending on the language but an example for markdown is included in this repository
 ### .gitmodules
+This file is only needed if there are submodules in the repository.
 ### .mailmap
+A .mailmap should be included with entries for every developer that commits from within the organization. 
 ### Readme
 ### License
 ### Code of conduct
