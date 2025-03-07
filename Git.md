@@ -18,7 +18,7 @@ What every editorconfig should include are:
 - max_line_length: The preffered value is 80
 - root: Set to true unless there are other editorconfigs in the repository.
 
-These may look different depending on the language but a example is included in this repository
+These may look different depending on the language but a example is included in [Templates](https://github.com/Lrssn-blog/Templates).
 ### .gitattributes
 ### .gitignore
 Ignored files are usually build artifacts and machine generated files that can be derived from your repository source or should otherwise not be committed. Some common examples are:
@@ -38,9 +38,17 @@ This file is only needed if there are submodules in the repository.
 ### .mailmap
 A .mailmap should be included with entries for every developer that commits from within the organization. 
 ### Readme
+The Readme should contain all information necessary to understand what the project does and how to use it.
+It should include how to install the project and its dependencies or add it to a project.
+It should have a Get Started section and a few examples on how to use the project.
 ### License
+Every repository should have a licens. 
+Github has created [ChooseALicense](https://choosealicense.com/) to make it easier to choose one.
 ### Code of conduct
+Every Repo should have a code of conduct.
+If not writing one just use the one in [Templates](https://github.com/Lrssn-blog/Templates).
 ### Changelog
+
 ### Authors
 ### Maintainers
 ### Owners
