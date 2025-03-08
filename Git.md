@@ -48,11 +48,32 @@ Github has created [ChooseALicense](https://choosealicense.com/) to make it easi
 Every Repo should have a code of conduct.
 If not writing one just use the one in [Templates](https://github.com/Lrssn-blog/Templates).
 ### Changelog
+Should have every change included in all releases.
+
+Here is a template:
+
+### [Version number](#) (Link to release) (Date)
+
+### Features
+* **Function:** Change ([First 8 number of commit](https://github.com/catppuccin/nvim/commit/85e93601e0f0b48aa2c6bbfae4d0e9d7a1898280))
+
+### Bug Fixes
+
+* **Function:** Change ([#Issue](https://github.com/Lrssn-blog/Templates/issues/#)) ([First 8 number of commit](https://github.com/Lrssn-blog/Templates/commit/#))
+* **Function:** Change ([First 8 number of commit](https://github.com/Lrssn-blog/Templates/commit/#)), closes [#Issue](https://github.com/Lrssn-blog/Templates/issues/#)
+
+### Performance Improvements
+
+* **Function:** Change ([First 8 number of commit](https://github.com/Lrssn-blog/Templates/commit/#))
 
 ### Authors
+The Authors file have a list of everyone who contributed to the project.
 ### Maintainers
+This document describes the current project maintainers.
 ### Owners
+This document describes the current repository owners.
 ### Contributing
+This document describes how to contribute to the repository. This includes creating pull requests, creating issues and how to check and structure the code.
 ## Security
 ## Documentation
 ## Submodules
