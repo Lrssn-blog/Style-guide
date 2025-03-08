@@ -73,11 +73,16 @@ This document describes the current project maintainers.
 ### Owners
 This document describes the current repository owners.
 ### Contributing
-This document describes how to contribute to the repository. This includes creating pull requests, creating issues and how to check and structure the code.
+This document describes how to contribute to the repository. 
+This includes creating pull requests, creating issues and how to check and structure the code.
 ## Security
 ## Documentation
+All documentation should be put in the Docs folder in the root of the repository.
+Both markdown and compiled for web or wiki.
 ## Submodules
+All submodules are to be stored in a separate folder.
 ## Scripts
+This is where all scripts that are not needed for running the project are stored. 
 
 
 # Commits
