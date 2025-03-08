@@ -86,8 +86,37 @@ This is where all scripts that are not needed for running the project are stored
 
 
 # Commits
-## Message
-## Description
+Commit messages should tell you how the code has been changed and why. It should not tell you how as this should be shown through the diff. 
+The commit message should be structured as:
+
+> `<type>[scope]: <description>`
+>
+> `[optional body]`
+>
+> `[optional footer(s)]`
+
+The commit type can include the following:
+
+- **feat** – a new feature is introduced with the changes
+- **fix** – a bug fix has occurred
+- **chore** – changes that do not relate to a fix or feature and don't modify src or test files (for example updating dependencies)
+- **refactor** – refactored code that neither fixes a bug nor adds a feature
+- **docs** – updates to documentation such as a the README or other markdown files
+- **style** – changes that do not affect the meaning of the code, likely related to code formatting such as white-space, missing semi-colons, and so on.
+- **test** – including new or correcting previous tests
+- **perf** – performance improvements
+- **ci** – continuous integration related
+- **build** – changes that affect the build system or external dependencies
+- **revert** – reverts a previous commit
+
+The scope is the module, such as authentication or rendering.
+
+The description is what has been changed. 
+
+The body is why it has been changed. Here is also information about breaking changes such as deprecation of functions or changes to schemas.
+
+The footer is the issues or tickets the commit works on. 
+
 
 # Issues
 ## Templates
