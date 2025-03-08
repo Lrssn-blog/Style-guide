@@ -2,7 +2,7 @@
 
 This repo is for all the different style guides i'll use going forward.
 
-# Git
+# [Git](./Git.md)
 A guide for how to create, structure and maintain git repos. This will also include other Github applications such as Github Projects and Github Hosting.
 
 # Bash
