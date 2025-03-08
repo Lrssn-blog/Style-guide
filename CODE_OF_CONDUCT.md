@@ -70,5 +70,7 @@ members of the project's leadership.
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
 available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
 
+By [Probot](https://github.com/probot) found in [Probot/Templates](https://github.com/probot/template/blob/master/CODE_OF_CONDUCT.md) 
+
 [homepage]: https://www.contributor-covenant.org
 
