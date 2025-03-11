@@ -96,13 +96,13 @@ Note: While working alone on a local branch that *has not yet been pushed*, it's
 
 Commit messages should tell you how the code has been changed and why. It should not tell you how as this should be shown through the diff. 
 The commit message should be structured as:
+  ```shell
+  <type>[scope]: <description>
 
-> `<type>[scope]: <description>`
->
-> `[optional body]`
->
-> `[optional footer(s)]`
+  [optional body]
 
+  [optional footer(s)]
+  ```
 The commit type can include the following:
 
 - **feat** – a new feature is introduced with the changes
@@ -132,7 +132,9 @@ In this folder we keep everything that has to do with Github
 ### Issue templates
 A folder containing the templates for the different issues people can add. 
 ### Workflows
+**TBA**
 ### Actions
+**TBA**
 ## Scripts
 This is where all scripts that are not needed for running the project are stored. 
 ## Submodules
@@ -219,7 +221,6 @@ In the comments should be a discussion on how the feature will impact developmen
 
 # Pull request
 ## Opening a request
-
 - Before opening the PR, make sure you're up to date with `master` so that your changes are easier to merge
 - The title and description should help the reviewer. Make the title succinct and descriptive, and then add detail in the description.
 - The description should summarise your changes and include useful links, eg to a Pivotal ticket, ZenDesk ticket or related PR. If the changes involve frontend code, we love screenshots!
@@ -230,20 +231,14 @@ Note: The canonical description of changes should always be in the individual co
 if we switched away.
 
 ## Reviewing a request
-
 ### Guidelines for review
-
 - It is important to take time to review a pull request properly; the review stage is as important as writing the code in the first place
 - If you're not sure how the individual wants their request reviewed, ask them before starting - they may prefer some of the feedback to be done in person or while pairing (especially if they're less experienced).
 - If the code is good, or solves something in a clever way, *say so*. Call out individual bits of quality - it signposts good practice for others, and rewards the person submitting the request.
 - State what, if anything, is a blocker explicitly
 
 ### Communicate with others who may consider reviewing the PR
-
-- If you're going to discuss some issues offline, please comment as such in the
-  PR so that no-one merges it in the meantime - "A few issues here, going to
-  discuss offline" would be enough. When conversation has taken place elsewhere,
-  summarise the conversation as a comment on the PR for the benefit of others.
+- If you're going to discuss some issues offline, please comment as such in the PR so that no-one merges it in the meantime - "A few issues here, going to discuss offline" would be enough. When conversation has taken place elsewhere, summarise the conversation as a comment on the PR for the benefit of others. 
 - If you look at a PR but don't feel comfortable merging it please say what
   you've looked at or not so other reviewers know the request hasn't been
   properly reviewed.
@@ -252,30 +247,23 @@ if we switched away.
 
 
 ### Helpful things to consider while reviewing
-
 - Try running the code - even if the tests pass it might have bugs
-- Consider security when reviewing code, particularly where there is user input.
-  The [basic security guidance](basic-security.md) might help.
-- Remember that a PR does not have to entirely solve the problem. If it adds
-  value on its own it is better to merge now rather than wait for the rest of
+- Consider security when reviewing code, particularly where there is user input. The [basic security guidance](basic-security.md) might help.
+- Remember that a PR does not have to entirely solve the problem. If it adds value on its own it is better to merge now rather than wait for the rest of
   the changes required.
-- Always comment on individual lines in the full-file diff view, not on a commit
-  page because GitHub loses them if you rebase
-- Ensure that any relevant documentation (`README` files, things in the `doc`
-  folder) is up to date with the changes
+- Always comment on individual lines in the full-file diff view, not on a commit page because GitHub loses them if you rebase
+- Ensure that any relevant documentation (`README` files, things in the `doc` folder) is up to date with the changes
 
 
 ## Addressing comments
-
 Any comments flagged as blocking should be addressed. This includes spelling or grammatical errors in documentation.
 
 - If you're changing something minor in an existing commit (eg renaming a variable for clarity, adding a missing test), amend the existing commit (please ask for help if you don't know how to do this)
 - Major changes should probably be addressed in a separate commit - be sure that when addressing changes you follow existing commit guidelines - "Addressed feedback" isn't an acceptable commit message
 - Explicitly comment that all relevant comments have been addressed to notify any watchers - you don't need to do this on a per-comment basis 
-  - Refactoring can and should be done in follow-up separate pull request - it should never be considered a blocker
+- Refactoring can and should be done in follow-up separate pull request - it should never be considered a blocker
 
 ## 'Done'
-
 'Done' doesn't just come when the code is merged. Features should not be considered delivered until they're in production, and it's the responsibility of the programmer who wrote the code to ensure their work is deployed in a timely fashion.
 
 # Merges
@@ -291,19 +279,19 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
 
 * Keep the history *clean* and *simple*. *Just before you merge* your branch:
 
-    1. Make sure it conforms to the style guide and perform any needed actions if it doesn't (squash/reorder commits, reword messages etc.)
+1. Make sure it conforms to the style guide and perform any needed actions if it doesn't (squash/reorder commits, reword messages etc.)
 
-    2. Rebase it onto the branch it's going to be merged to:
+2. Rebase it onto the branch it's going to be merged to:
 
-       ```shell
-       [my-branch] $ git fetch
-       [my-branch] $ git rebase origin/main
-       # then merge
-       ```
+  ```shell
+  [my-branch] $ git fetch
+  [my-branch] $ git rebase origin/main
+  # then merge
+  ```
 
-       This results in a branch that can be applied directly to the end of the "main" branch and results in a very simple history.
+This results in a branch that can be applied directly to the end of the "main" branch and results in a very simple history.
 
-       *(Note: This strategy is better suited for projects with short-running branches. Otherwise it might be better to occassionally merge the "main" branch instead of rebasing onto it.)*
+*(Note: This strategy is better suited for projects with short-running branches. Otherwise it might be better to occassionally merge the "main" branch instead of rebasing onto it.)*
 
 * If your branch includes more than one commit, do not merge with a fast-forward:
 
@@ -316,13 +304,24 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
   ```
 
 # Patches
+**TBA**
 
 # Notes
+**TBA**
 
 # Releases
+**TBA**
 ## Versioning
+Versioning will be done using the Semantic Versioning schema
+Given a version number MAJOR.MINOR.PATCH, increment the:
+
+-MAJOR version when you make incompatible API changes
+-MINOR version when you add functionality in a backward compatible manner
+-PATCH version when you make backward compatible bug fixes
+Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format. Ex. a beta will look like *x.y.z-b*.
 
 # Github
+**TBA**
 ## Projects
 ## Workflows
 ## Actions
