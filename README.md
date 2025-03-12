@@ -5,7 +5,7 @@ This repo is for all the different style guides i'll use going forward.
 # [Git](./Git.md)
 A guide for how to create, structure and maintain git repos. This will also include other Github applications such as Github Projects and Github Hosting.
 
-# [Javascript](#)
+# [Javascript](./Javascript.md)
 A style guide for Javascript. Heavily based on the [Google styleguide](https://google.github.io/styleguide/jsguide.html).
 
 # [Typescript](#)
