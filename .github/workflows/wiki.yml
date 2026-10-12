@@ -1,0 +1,41 @@
+name: Wiki
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wiki
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out wiki
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki
+
+      - name: Sync pages
+        run: scripts/sync-wiki.sh wiki
+
+      - name: Push changes
+        working-directory: wiki
+        run: |
+          git add --all
+          if git diff --cached --quiet; then
+              echo "Wiki is up to date."
+              exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "docs: sync wiki from ${GITHUB_SHA::7}"
+          git push
