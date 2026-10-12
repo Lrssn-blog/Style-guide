@@ -416,14 +416,18 @@ Use these language identifiers:
 | Content | Identifier |
 | --- | --- |
 | Bash scripts and commands | `bash` |
+| BibTeX bibliographies | `bibtex` |
 | C++ | `cpp` |
+| CMake | `cmake` |
 | Commands together with their output | `console` |
 | Dockerfiles | `dockerfile` |
 | Go | `go` |
+| INI files, such as `.editorconfig` | `ini` |
 | JavaScript | `javascript` |
 | JSON | `json` |
 | LaTeX | `latex` |
 | Markdown | `markdown` |
+| Perl, such as `.latexmkrc` | `perl` |
 | Plain text and program output | `text` |
 | Python | `python` |
 | TOML | `toml` |
