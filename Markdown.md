@@ -510,7 +510,7 @@ Link the most relevant words of the sentence, not the whole sentence.
 ### Relative links
 
 Link to files in the same repository with relative paths.
-Absolute links to GitHub break in forks and on other branches, and do not work in a local clone.
+Absolute links to GitHub point at the original repository, so they are wrong in forks, and they do not work in a local clone.
 
 ```markdown
 Good: [Javascript style guide](./Javascript.md)
@@ -719,7 +719,7 @@ It enables all default rules and configures them to match this guide.
 ```
 
 The `MD013` settings allow long lines of prose, since sentences are not hard-wrapped, while keeping code blocks within 80 columns.
-The limit of 300 characters for prose catches paragraphs that were written on a single line.
+The 300-character limit for prose only flags very long lines, so the one sentence per line rule is still needed.
 
 Run the linter on every Markdown file in the repository:
 
