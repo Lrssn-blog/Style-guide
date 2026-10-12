@@ -445,14 +445,14 @@ The reader should be able to copy the whole block and run it.
 
 ```bash
 git fetch origin
-git rebase origin/main
+git rebase origin/master
 ```
 
 When a block shows commands together with their output, use the `console` language and prefix the commands with a dollar sign and a space (`$`) so that the reader can tell them apart from the output.
 
 ```console
 $ git branch --show-current
-main
+master
 ```
 
 ### Long commands

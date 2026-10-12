@@ -13,7 +13,8 @@ Every repository should have most of the following documents, even if they are e
 An editorconfig will make sure every editor behaves the same. For more information see [editorconfig.org](https://editorconfig.org/).
 What every editorconfig should include are:
 
-- indent_style: The preferred style is spaces. Go is the exception, as `gofmt` indents with tabs (see the [Go style guide](./Go.md#editorconfig)).
+- indent_style: The preferred style is spaces.
+  Go is the exception, as `gofmt` indents with tabs (see the [Go style guide](./Go.md#editorconfig)).
 - indent_size: The preferred size is 4.
 - tab_width: This should match the indent_size.
 - end_of_line: LF is preferred for intercompatibility.
@@ -112,16 +113,20 @@ This includes creating pull requests, creating issues and how to check and struc
 
 ## Commits
 
-- Each commit should be a single *logical change*. Don't make several *logical changes* in one commit. For example, if a patch fixes a bug and optimizes the performance of a feature, split it into two separate commits.
+- Each commit should be a single *logical change*.
+  Don't make several *logical changes* in one commit.
+  For example, if a patch fixes a bug and optimizes the performance of a feature, split it into two separate commits.
 
-  *Tip: Use `git add -p` to interactively stage specific portions of the
-  modified files.*
+  *Tip: Use `git add -p` to interactively stage specific portions of the modified files.*
 
-- Don't split a single *logical change* into several commits. For example, the implementation of a feature and the corresponding tests should be in the same commit.
+- Don't split a single *logical change* into several commits.
+  For example, the implementation of a feature and the corresponding tests should be in the same commit.
 
-- Commit *early* and *often*. Small, self-contained commits are easier to understand and revert when something goes wrong.
+- Commit *early* and *often*.
+  Small, self-contained commits are easier to understand and revert when something goes wrong.
 
-- Commits should be ordered *logically*. For example, if *commit X* depends on changes done in *commit Y*, then *commit Y* should come before *commit X*.
+- Commits should be ordered *logically*.
+  For example, if *commit X* depends on changes done in *commit Y*, then *commit Y* should come before *commit X*.
 
 Note: While working alone on a local branch that *has not yet been pushed*, it's fine to use commits as temporary snapshots of your work. However, it still holds true that you should apply all of the above *before* pushing it.
 
@@ -158,7 +163,7 @@ The description is what has been changed.
 
 The body is why it has been changed. Here is also information about breaking changes such as deprecation of functions or changes to schemas.
 
-The footer is the issues or tickets the commit works on.
+The footer holds issue references, such as `Closes #42`, and trailers such as `Co-Authored-By:` or `Claude-Session:`. Put each trailer on its own line after a blank line.
 
 ## Folders
 
@@ -196,7 +201,7 @@ Both markdown and compiled for web or wiki.
 ## Issues
 
 Issues are added and tracked through GitHub.
-The issue is labeled and assigned to by a maintainer.
+A maintainer labels and assigns the issue. If you file an issue, leave the labels and assignee to the maintainer.
 
 ### Templates
 
@@ -242,8 +247,8 @@ In the comments should be a discussion on how the feature will impact developmen
   git checkout -b login_fix           # bad
   ```
 
-- Identifiers from corresponding tickets in an external service (eg. a GitHub
-  issue) are also good candidates for use in branch names. For example:
+- Identifiers from corresponding tickets in an external service (eg. a GitHub issue) are also good candidates for use in branch names.
+  For example:
 
   ```bash
   # GitHub issue #15
@@ -257,8 +262,7 @@ In the comments should be a discussion on how the feature will impact developmen
   git checkout -b New_Feature         # bad
   ```
 
-- When several people are working on the *same* feature, it might be convenient
-  to have *personal* feature branches and a *team-wide* feature branch.
+- When several people are working on the *same* feature, it might be convenient to have *personal* feature branches and a *team-wide* feature branch.
   Use the following naming convention:
 
   ```bash
@@ -270,11 +274,9 @@ In the comments should be a discussion on how the feature will impact developmen
   Merge at will the personal branches to the team-wide branch.
   Eventually, the team-wide branch will be merged to "master".
 
-- Delete your branch from the upstream repository after it's merged, unless
-  there is a specific reason not to.
+- Delete your branch from the upstream repository after it's merged, unless there is a specific reason not to.
 
-  Tip: Use the following command while being on "master", to list merged
-  branches:
+  Tip: Use the following command while being on "master", to list merged branches:
 
   ```bash
   git branch --merged | grep -v "\*"
@@ -285,39 +287,41 @@ In the comments should be a discussion on how the feature will impact developmen
 ### Opening a request
 
 - Before opening the PR, make sure you're up to date with `master` so that your changes are easier to merge
-- The title and description should help the reviewer. Make the title succinct and descriptive, and then add detail in the description.
-- The description should summarise your changes and include useful links, eg to a Pivotal ticket, ZenDesk ticket or related PR. If the changes involve frontend code, we love screenshots!
-- When raising a PR, the title and description are emailed to those following the repo. Any subsequent changes are not emailed, so it's worth spending a bit of time getting it right at the point of raising the PR.
+- The title and description should help the reviewer.
+  Make the title succinct and descriptive, and then add detail in the description.
+- The description should summarise your changes and include useful links, eg to an issue, a ticket or a related PR.
+  If the change affects a user interface, add a screenshot or describe the visible change.
+- When raising a PR, the title and description are emailed to those following the repo.
+  Any subsequent changes are not emailed, so it's worth spending a bit of time getting it right at the point of raising the PR.
 - It is worth explaining/highlighting any potentially contentious changes, and any testing that you have already done.
 
-Note: The canonical description of changes should always be in the individual commits - Pull Requests are an artefact of GitHub, and we would lose that data
-if we switched away.
+Note: The canonical description of changes should always be in the individual commits.
+Pull Requests are an artefact of GitHub, and we would lose that data if we switched away.
 
 ### Reviewing a request
 
 #### Guidelines for review
 
 - It is important to take time to review a pull request properly; the review stage is as important as writing the code in the first place
-- If you're not sure how the individual wants their request reviewed, ask them before starting - they may prefer some of the feedback to be done in person or while pairing (especially if they're less experienced).
-- If the code is good, or solves something in a clever way, *say so*. Call out individual bits of quality - it signposts good practice for others, and rewards the person submitting the request.
+- If the reviewer's preference is unclear, state your assumption in the PR description before you review.
+  Some people prefer feedback in person or while pairing, especially less experienced authors.
+- If the code is good, or solves something in a clever way, *say so*.
+  Call out individual bits of quality - it signposts good practice for others, and rewards the person submitting the request.
 - State what, if anything, is a blocker explicitly
 
 #### Communicate with others who may consider reviewing the PR
 
 - If you're going to discuss some issues offline, please comment as such in the PR so that no-one merges it in the meantime - "A few issues here, going to discuss offline" would be enough.
   When conversation has taken place elsewhere, summarise the conversation as a comment on the PR for the benefit of others.
-- If you look at a PR but don't feel comfortable merging it please say what
-  you've looked at or not so other reviewers know the request hasn't been
-  properly reviewed.
-- If you're committed to reviewing the request through to merging or closing,
-  assign the PR to yourself
+- If you look at a PR but don't feel comfortable merging it please say what you've looked at or not so other reviewers know the request hasn't been properly reviewed.
+- If you're committed to reviewing the request through to merging or closing, assign the PR to yourself
 
 #### Helpful things to consider while reviewing
 
 - Try running the code - even if the tests pass it might have bugs
 - Consider security when reviewing code, particularly where there is user input.
-- Remember that a PR does not have to entirely solve the problem. If it adds value on its own it is better to merge now rather than wait for the rest of
-  the changes required.
+- Remember that a PR does not have to entirely solve the problem.
+  If it adds value on its own it is better to merge now rather than wait for the rest of the changes required.
 - Always comment on individual lines in the full-file diff view, not on a commit page because GitHub loses them if you rebase
 - Ensure that any relevant documentation (`README` files, things in the `docs` folder) is up to date with the changes
 
@@ -325,7 +329,11 @@ if we switched away.
 
 Any comments flagged as blocking should be addressed. This includes spelling or grammatical errors in documentation.
 
-- If you're changing something minor in an existing commit (eg renaming a variable for clarity, adding a missing test), amend the existing commit (please ask for help if you don't know how to do this)
+- While a PR is in review, add a new commit for each round of fixes, for example to rename a variable or add a missing test.
+  Do not amend or rebase commits that are already pushed.
+- Before the first push, or on a branch that only you use, amend or squash freely.
+  Then push with `git push --force-with-lease`, never `--force`, and never to `master`.
+- If you are unsure how to do this, describe what you tried in the PR.
 - Major changes should probably be addressed in a separate commit - be sure that when addressing changes you follow existing commit guidelines - "Addressed feedback" isn't an acceptable commit message
 - Explicitly comment that all relevant comments have been addressed to notify any watchers - you don't need to do this on a per-comment basis
 - Refactoring can and should be done in follow-up separate pull request - it should never be considered a blocker
@@ -336,9 +344,11 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
 
 ## Merges
 
-- **Do not rewrite published history.** The repository's history is valuable in its own right and it is very important to be able to tell *what actually happened*. Altering published history is a common source of problems for anyone working on the project.
+- **Do not rewrite published history.** The repository's history is valuable in its own right and it is very important to be able to tell *what actually happened*.
+  Altering published history is a common source of problems for anyone working on the project.
 
-- However, there are cases where rewriting history is legitimate. These are when:
+- However, there are cases where rewriting history is legitimate.
+  These are when:
 
     - You are the only one working on the branch and it is not being reviewed.
 
@@ -346,19 +356,24 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
 
   That said, *never rewrite the history of the "master" branch* or any other special branches (ie. used by production or CI servers).
 
-- Keep the history *clean* and *simple*. *Just before you merge* your branch:
+- Keep the history *clean* and *simple*.
+  *Just before you merge* your branch:
 
 1. Make sure it conforms to the style guide and perform any needed actions if it doesn't (squash/reorder commits, reword messages etc.)
 
-2. Rebase it onto the branch it's going to be merged to:
+2. Rebase only a branch that nobody else has reviewed.
+   For a reviewed branch, merge the base branch into it instead:
 
   ```bash
+  # Not yet reviewed by anyone else: rebase.
   [my-branch] $ git fetch
   [my-branch] $ git rebase origin/master
-  # then merge
+
+  # Already reviewed: merge instead, which keeps history intact.
+  [my-branch] $ git merge origin/master
   ```
 
-This results in a branch that can be applied directly to the end of the "master" branch and results in a very simple history.
+Rebasing gives a branch that can be applied directly to the end of the "master" branch, with a very simple history.
 *(Note: This strategy is better suited for projects with short-running branches. Otherwise it might be better to occasionally merge the "master" branch instead of rebasing onto it.)*
 
 - If your branch includes more than one commit, do not merge with a fast-forward:

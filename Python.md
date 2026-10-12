@@ -859,10 +859,10 @@ if i & (i - 1) == 0:  # True if i is 0 or a power of 2.
 
 ### TODO comments
 
-Write `TODO` comments with the user name of the author or a link to an issue.
+Write `TODO` comments with a link to an issue, such as `TODO(#42)`. If no issue exists yet, open one first.
 
 ```python
-# TODO(lrssn): Use a heap instead of sorting the whole list.
+# TODO(#41): Use a heap instead of sorting the whole list.
 # TODO(#42): Handle time zones.
 ```
 

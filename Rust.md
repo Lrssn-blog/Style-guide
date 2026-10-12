@@ -617,10 +617,10 @@ Comments inside functions explain why the code does something, not what it does.
 
 ### TODO comments
 
-Write `TODO` comments with the user name of the author or a link to an issue.
+Write `TODO` comments with a link to an issue, such as `TODO(#42)`. If no issue exists yet, open one first.
 
 ```rust
-// TODO(lrssn): Cache the parsed configuration.
+// TODO(#41): Cache the parsed configuration.
 // TODO(#42): Support TOML files.
 ```
 

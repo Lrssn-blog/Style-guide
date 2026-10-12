@@ -900,10 +900,10 @@ const DecimalNumber product = CalculateProduct(values, /*precision=*/7);
 
 ### TODO comments
 
-Write `TODO` comments with the user name of the author or a link to an issue.
+Write `TODO` comments with a link to an issue, such as `TODO(#42)`. If no issue exists yet, open one first.
 
 ```cpp
-// TODO(lrssn): Use a heap instead of sorting the whole list.
+// TODO(#41): Use a heap instead of sorting the whole list.
 // TODO(#42): Handle IPv6 addresses.
 ```
 

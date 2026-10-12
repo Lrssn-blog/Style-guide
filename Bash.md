@@ -213,10 +213,10 @@ If a piece of code needs a long comment, consider whether it can be made simpler
 
 ### TODO comments
 
-Write `TODO` comments with the user name of the author or a link to an issue.
+Write `TODO` comments with a link to an issue, such as `TODO(#42)`. If no issue exists yet, open one first.
 
 ```bash
-# TODO(lrssn): Handle the case where the bucket does not exist.
+# TODO(#41): Handle the case where the bucket does not exist.
 # TODO(#42): Support incremental backups.
 ```
 
