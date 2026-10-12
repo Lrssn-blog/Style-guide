@@ -941,10 +941,10 @@ func Load(path string) (*Config, error)
 
 ### TODO comments
 
-Write `TODO` comments with the user name of the author or a link to an issue.
+Write `TODO` comments with a link to an issue, such as `TODO(#42)`. If no issue exists yet, open one first.
 
 ```go
-// TODO(lrssn): Remove this once the API supports pagination.
+// TODO(#41): Remove this once the API supports pagination.
 // TODO(#42): Retry on temporary errors.
 ```
 
