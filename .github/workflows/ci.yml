@@ -19,13 +19,13 @@ jobs:
     if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v24
+      - uses: actions/checkout@v7
+      - uses: DavidAnson/markdownlint-cli2-action@v19
 
   links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: lycheeverse/lychee-action@v2
         with:
           args: --config .lychee.toml '**/*.md'
