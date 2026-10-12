@@ -13,7 +13,7 @@ Every repository should have most the following documents, even if they are empt
 A editorconfig will make sure every editor behaves the same. For more information see [editorconfig.org](https://editorconfig.org/).
 What every editorconfig should include are:
 
-- indent_style: The preffered style is tabs.
+- indent_style: The preferred style is spaces. Go is the exception, as `gofmt` indents with tabs (see the [Go style guide](./Go.md#editorconfig)).
 - indent_size: The preffered size is 4.
 - tab_width: This should match the indent_size.
 - end_of_line: LF is preffered for intercompatability.
