@@ -41,3 +41,11 @@ A style guide for C++. Heavily based on the [Google styleguide](https://google.g
 ## [Python](./Python.md)
 
 A style guide for Python. Heavily based on the [Google styleguide](https://google.github.io/styleguide/pyguide.html) and [PEP 8](https://peps.python.org/pep-0008/).
+
+## [Perl](./Perl.md)
+
+A style guide for Perl. Based on [perlstyle](https://perldoc.perl.org/perlstyle) and Perl Best Practices.
+
+## [Rust](./Rust.md)
+
+A style guide for Rust. Based on the [Rust style guide](https://doc.rust-lang.org/style-guide/) and the [Rust API guidelines](https://rust-lang.github.io/api-guidelines/).

@@ -427,9 +427,10 @@ Use these language identifiers:
 | JSON | `json` |
 | LaTeX | `latex` |
 | Markdown | `markdown` |
-| Perl, such as `.latexmkrc` | `perl` |
+| Perl, including `.latexmkrc` and `cpanfile` | `perl` |
 | Plain text and program output | `text` |
 | Python | `python` |
+| Rust | `rust` |
 | TOML | `toml` |
 | TypeScript | `typescript` |
 | YAML | `yaml` |
