@@ -327,7 +327,7 @@ Prefer a struct with named fields over `std::pair` and `std::tuple`.
 Prefer composition over inheritance.
 When using inheritance, make it `public`.
 
-- Mark overriding functions with exactly one of `override` or `final`, and do not repeat `virtual` on them.
+- Mark overriding functions with `override`, `final`, or both, and do not repeat `virtual` on them.
 - Classes that are meant to be used through a base class pointer have a `virtual` destructor.
 - Avoid multiple implementation inheritance.
   Inheriting from several pure interfaces is fine.
@@ -468,7 +468,7 @@ A common use is a test class or a builder class.
 ### Exceptions
 
 Exceptions may be used, which is a deviation from the Google guide.
-Google's ban is mostly for compatibility with old code that is not exception safe, which does not apply to new projects.
+This guide allows exceptions so that an error the caller cannot handle locally can travel up to code that can, without a status check at every level.
 
 - Throw an exception for errors that the caller cannot handle locally, such as a broken invariant or a failed resource that the program depends on.
 - Return `std::optional`, or `std::expected` in C++23, for failures that are part of normal operation, such as a lookup that finds nothing or input that does not parse.
@@ -505,7 +505,7 @@ int main() {
 ### noexcept
 
 Mark functions `noexcept` when they cannot throw and it is useful, especially move constructors and move assignment operators.
-Containers such as `std::vector` only move elements whose move constructor is `noexcept`.
+When `std::vector` grows, it moves its elements only if their move constructor is `noexcept`, and copies them otherwise, if they can be copied.
 
 ### Run-time type information
 
@@ -757,7 +757,7 @@ struct UrlTableProperties {
 
 ### Constant names
 
-Variables declared `constexpr` or `const` whose value is fixed for the duration of the program are named with a leading `k` followed by `PascalCase`.
+Variables declared `constexpr` whose value is fixed for the duration of the program are named with a leading `k` followed by `PascalCase`.
 
 ```cpp
 constexpr int kDaysInAWeek = 7;
@@ -766,8 +766,7 @@ const int kAndroid8_0_0 = 24;  // Android 8.0.0
 
 ### Function names
 
-Functions use `PascalCase`.
-Accessors and mutators may be named like variables, matching the member they access.
+Functions use `PascalCase`, including accessors and mutators: `Count()` returns the count, and `SetCount()` changes it.
 
 ```cpp
 void AddTableEntry();
@@ -775,10 +774,10 @@ bool DeleteUrl();
 
 class Counter {
   public:
-    int count() const {
+    int Count() const {
         return count_;
     }
-    void set_count(int count) {
+    void SetCount(int count) {
         count_ = count;
     }
 
