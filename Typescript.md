@@ -1341,10 +1341,10 @@ someFunction(obviousParam, /* shouldRender= */ true, /* name= */ 'hello');
 
 ### TODO comments
 
-Write `TODO` comments with the user name of the author or a link to an issue, so that it is clear who to ask.
+Write `TODO` comments with a link to an issue, such as `TODO(#42)`, so that anyone can see what the work is. If no issue exists yet, open one first.
 
 ```typescript
-// TODO(lrssn): Remove this workaround when the API returns sorted results.
+// TODO(#41): Remove this workaround when the API returns sorted results.
 // TODO(#42): Support pagination.
 ```
 
