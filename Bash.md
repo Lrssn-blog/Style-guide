@@ -8,7 +8,6 @@ Deviations from the Google guide:
 - Code is indented by 4 spaces instead of 2, following the house rule in `.editorconfig`.
 - Scripts start with `#!/usr/bin/env bash` instead of `#!/bin/bash`, so that they find Bash on every platform.
 - Scripts enable strict mode with `set -euo pipefail`.
-- Function comments are not surrounded by lines of `#` characters, as comments are not drawn in boxes.
 - A section on [portability](#portability) covers macOS and Windows.
 
 ## Table of contents
@@ -19,7 +18,7 @@ Deviations from the Google guide:
 
 ### Which shell to use
 
-Bash is the only shell language allowed for executable scripts.
+Bash is the shell for executable scripts in this repository.
 Do not write scripts for `sh`, `zsh` or `fish`.
 
 The exception is environments where Bash is not installed, such as minimal container images based on Alpine Linux.
