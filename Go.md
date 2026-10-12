@@ -313,7 +313,7 @@ Initialisms and acronyms such as `URL`, `ID`, `HTTP` and `API` keep a consistent
 | `ServeHTTP` | `ServeHttp` |
 | `xmlHTTPRequest` | `XmlHttpRequest` |
 
-This is different from the Javascript and TypeScript guides, which treat acronyms as words.
+This is different from the TypeScript guide, which treats acronyms as words.
 Follow the convention of the language.
 
 ### Name length

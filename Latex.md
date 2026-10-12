@@ -311,14 +311,14 @@ The velocity $\mathbf{v}$ is constant.
 
 ### Macro names
 
-Macro names consist of lowercase letters only, as LaTeX does not allow digits or punctuation in command names.
+Macro names consist of letters only, as LaTeX does not allow digits or punctuation in command names. Use lowercase names for the macros you define; the theme's color names, such as `LrssnOrange`, are the exception.
 Choose descriptive names that do not clash with existing commands.
 
 ### Spaces after macros
 
 LaTeX removes the space after a macro without arguments.
 Follow such macros with `{}` when a space should follow.
-Do not use the `xspace` package.
+Do not use the `xspace` package. An explicit `{}` after the macro is easier to read and to check than an automatic guess.
 
 ```latex
 % Good:
@@ -752,7 +752,7 @@ chktex main.tex chapters/*.tex
 ```
 
 ChkTeX warns about a `\label` on its own line after `\section` or `\caption` (warning 24).
-That is the layout this guide recommends, and the warning does not apply there.
+That is the layout this guide recommends, and the warning is safe to ignore here.
 Turn it off with a `.chktexrc` file in the root of the project:
 
 ```text

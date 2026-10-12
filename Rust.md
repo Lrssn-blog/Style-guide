@@ -272,7 +272,7 @@ struct HTTPServer;
 struct UUID;
 ```
 
-This matches the JavaScript and TypeScript guides, and differs from the Go guide, which keeps acronyms in one case.
+This matches the TypeScript guide, and differs from the Go guide, which keeps acronyms in one case.
 
 ### Constructors
 

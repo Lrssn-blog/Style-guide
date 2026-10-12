@@ -74,7 +74,7 @@ See [Docker Compose](#docker-compose).
 
 ### Line endings
 
-Scripts that are copied into Linux images must have LF line endings, or they fail with errors such as `exec format error`.
+Scripts that are copied into Linux images must have LF line endings, or they fail with errors such as `env: 'sh\r': No such file or directory`.
 Add the scripts to `.gitattributes`, as described in the [Bash style guide](./Bash.md#line-endings).
 
 ## Dockerfile structure
@@ -558,7 +558,7 @@ Compose files are YAML, indented by 4 spaces.
 
 - Do not add the `version` key, which is obsolete.
 - Name services in lowercase with hyphens between words.
-- Quote port mappings, as YAML reads some unquoted values such as `22:22` as numbers.
+- Quote port mappings, so that they are always read as strings.
 - Put `build` or `image` first in each service, followed by the other keys in a consistent order.
 
 ```yaml
@@ -651,6 +651,7 @@ RUN npm ci --omit=dev
 # Development: all dependencies and live reloading.
 FROM base AS dev
 RUN npm ci
+COPY . .
 CMD ["npm", "run", "dev"]
 
 # Build the production bundle.

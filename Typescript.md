@@ -27,7 +27,7 @@ Follow the convention that your project uses.
 | `.tsx` | TypeScript source that contains JSX |
 | `.d.ts` | Type declarations for code that is not written in TypeScript |
 
-Test files are named after the file they test, with a `_test` or `.test` suffix, for example `user_service_test.ts`.
+Test files are named after the file they test, with a `_test` suffix, for example `user_service_test.ts`.
 
 ### File encoding: UTF-8
 
@@ -155,7 +155,7 @@ Use ES module imports for everything.
 ### Exports
 
 Use named exports in all code.
-Do not use default exports, because importing modules then choose their own names, which leads to inconsistent names across a code base.
+Do not use default exports, because importing modules choose their own names, which leads to inconsistent names across a code base.
 
 ```typescript
 // Good:
@@ -473,7 +473,7 @@ let points: Array<{x: number, y: number}>;
 #### Destructuring
 
 Array destructuring is allowed, and elements that are not needed can be left out.
-Default values go on the left hand side.
+Default values go on the left-hand side.
 
 ```typescript
 const [a, b, c, ...rest] = generateResults();
@@ -546,7 +546,7 @@ Class declarations are not followed by a semicolon, and neither are methods.
 #### Class members
 
 Do not use private fields (`#field`).
-Use TypeScript's `private` and `protected` modifiers instead, which are easier to read and to test.
+Use TypeScript's `private` and `protected` modifiers instead, which are easier to read.
 
 Mark properties that are never reassigned outside the constructor with `readonly`.
 

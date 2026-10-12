@@ -133,7 +133,7 @@ from ..storage import user_store
 #### Import formatting
 
 Put each import on its own line.
-The exceptions are `typing` and `collections.abc`, where several names may be imported on one line.
+The exceptions are `typing`, `collections.abc` and `typing_extensions`, where several names may be imported on one line.
 
 ```python
 # Good:
@@ -937,7 +937,7 @@ convention = "google"
 [tool.ruff.lint.isort]
 force-single-line = true
 force-sort-within-sections = true
-single-line-exclusions = ["collections.abc", "typing"]
+single-line-exclusions = ["collections.abc", "typing", "typing_extensions"]
 
 [tool.ruff.lint.per-file-ignores]
 "*_test.py" = ["ANN", "D"]

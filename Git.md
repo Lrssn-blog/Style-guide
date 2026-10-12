@@ -6,26 +6,28 @@
 
 ### Documents
 
-Every repository should have most the following documents, even if they are empty.
+Every repository should have most of the following documents, even if they are empty.
 
 #### .editorconfig
 
-A editorconfig will make sure every editor behaves the same. For more information see [editorconfig.org](https://editorconfig.org/).
+An editorconfig will make sure every editor behaves the same. For more information see [editorconfig.org](https://editorconfig.org/).
 What every editorconfig should include are:
 
 - indent_style: The preferred style is spaces. Go is the exception, as `gofmt` indents with tabs (see the [Go style guide](./Go.md#editorconfig)).
-- indent_size: The preffered size is 4.
+- indent_size: The preferred size is 4.
 - tab_width: This should match the indent_size.
-- end_of_line: LF is preffered for intercompatability.
-- charset: While there is a argument for using UTF-16 we will stick to UTF-8 due to using less memory.
-- trim_trailing_whitespace: The preffered style is true.
-- insert_final_newline: The preffered style is true.
-- max_line_length: The preffered value is 80
+- end_of_line: LF is preferred for intercompatibility.
+- charset: While there is an argument for using UTF-16 we will stick to UTF-8 due to using less memory.
+- trim_trailing_whitespace: The preferred style is true.
+- insert_final_newline: The preferred style is true.
+- max_line_length: The preferred value is 80.
 - root: Set to true unless there are other editorconfigs in the repository.
 
-These may look different depending on the language but a example is included in [Templates](https://github.com/Lrssn-blog/Templates).
+These may look different depending on the language but an example is included in [Templates](https://github.com/Lrssn-blog/Templates).
 
 #### .gitattributes
+
+Add `*.sh text eol=lf` to keep shell scripts on LF line endings, even when Git checks them out on Windows. See the [Bash style guide](./Bash.md#line-endings).
 
 #### .gitignore
 
@@ -58,12 +60,12 @@ It should have a Get Started section and a few examples on how to use the projec
 
 #### License
 
-Every repository should have a licens.
-Github has created [ChooseALicense](https://choosealicense.com/) to make it easier to choose one.
+Every repository should have a license.
+GitHub has created [ChooseALicense](https://choosealicense.com/) to make it easier to choose one.
 
 #### Code of conduct
 
-Every Repo should have a code of conduct.
+Every repository should have a code of conduct.
 If not writing one just use the one in [Templates](https://github.com/Lrssn-blog/Templates).
 
 #### Changelog
@@ -72,9 +74,9 @@ Should have every change included in all releases.
 
 Here is a template:
 
-  ```shell
-  [Version number](#) (Link to release) (Date)
-  ```
+```bash
+[Version number](#) (Link to release) (Date)
+```
 
 #### Features
 
@@ -125,16 +127,16 @@ Note: While working alone on a local branch that *has not yet been pushed*, it's
 
 ### Messages
 
-Commit messages should tell you how the code has been changed and why. It should not tell you how as this should be shown through the diff.
+Commit messages should tell you what has been changed and why. They should not tell you how, as the diff shows that.
 The commit message should be structured as:
 
-  ```shell
-  <type>[scope]: <description>
+```bash
+<type>[scope]: <description>
 
-  [optional body]
+[optional body]
 
-  [optional footer(s)]
-  ```
+[optional footer(s)]
+```
 
 The commit type can include the following:
 
@@ -142,7 +144,7 @@ The commit type can include the following:
 - **fix** – a bug fix has occurred
 - **chore** – changes that do not relate to a fix or feature and don't modify src or test files (for example updating dependencies)
 - **refactor** – refactored code that neither fixes a bug nor adds a feature
-- **docs** – updates to documentation such as a the README or other markdown files
+- **docs** – updates to documentation such as the README or other markdown files
 - **style** – changes that do not affect the meaning of the code, likely related to code formatting such as white-space, missing semi-colons, and so on.
 - **test** – including new or correcting previous tests
 - **perf** – performance improvements
@@ -164,7 +166,7 @@ These folders are commonly used in repositories.
 
 ### .github
 
-In this folder we keep everything that has to do with Github
+In this folder we keep everything that has to do with GitHub
 
 #### Issue templates
 
@@ -188,12 +190,12 @@ All submodules are to be stored in a separate folder.
 
 ### Documentation
 
-All documentation should be put in the Docs folder in the root of the repository.
+All documentation should be put in the `docs` folder in the root of the repository.
 Both markdown and compiled for web or wiki.
 
 ## Issues
 
-Issues are added and tracked through github.
+Issues are added and tracked through GitHub.
 The issue is labeled and assigned to by a maintainer.
 
 ### Templates
@@ -203,28 +205,31 @@ When adding a new issue a template should be used.
 #### Bug report
 
 A bug report should include:
-A name that is a short description on what the bug does.
-A full explanation on what the bug does and how it impacts the project.
-OS and version of os
-Version of software
-The steps needed to reproduce the bug.  
+
+- A name that is a short description on what the bug does.
+- A full explanation on what the bug does and how it impacts the project.
+- OS and version of os
+- Version of software
+- The steps needed to reproduce the bug.
 
 #### Crash report
 
 A crash report should include:
-A name that is a short description on how the software crashed.
-A full description on what happened prior to crash.
-OS and version of os
-Version of software
-The steps needed to reproduce the crash.
+
+- A name that is a short description on how the software crashed.
+- A full description on what happened prior to crash.
+- OS and version of os
+- Version of software
+- The steps needed to reproduce the crash.
 
 Finally a crash log should be added in the comments.
 
 #### Feature request
 
 A feature request should include:
-A name that is a short description of the new feature.
-A description on how the new feature will impact the project.
+
+- A name that is a short description of the new feature.
+- A description on how the new feature will impact the project.
 
 In the comments should be a discussion on how the feature will impact development.
 
@@ -232,7 +237,7 @@ In the comments should be a discussion on how the feature will impact developmen
 
 - Choose *short* and *descriptive* names:
 
-  ```shell
+  ```bash
   git checkout -b oauth-migration     # good
   git checkout -b login_fix           # bad
   ```
@@ -240,15 +245,14 @@ In the comments should be a discussion on how the feature will impact developmen
 - Identifiers from corresponding tickets in an external service (eg. a GitHub
   issue) are also good candidates for use in branch names. For example:
 
-  ```shell
+  ```bash
   # GitHub issue #15
   $ git checkout -b issue-15
   ```
 
-- Use lowercase in branch names.
-  letters are a valid exception. Use *hyphens* to separate words.
+- Use lowercase in branch names, with *hyphens* to separate words.
 
-  ```shell
+  ```bash
   git checkout -b new-feature         # good
   git checkout -b New_Feature         # bad
   ```
@@ -257,22 +261,22 @@ In the comments should be a discussion on how the feature will impact developmen
   to have *personal* feature branches and a *team-wide* feature branch.
   Use the following naming convention:
 
-  ```shell
+  ```bash
   git checkout -b feature-a/main # team-wide branch
   git checkout -b feature-a/maria  # Maria's personal branch
   git checkout -b feature-a/nick   # Nick's personal branch
   ```
 
   Merge at will the personal branches to the team-wide branch.
-  Eventually, the team-wide branch will be merged to "main".
+  Eventually, the team-wide branch will be merged to "master".
 
 - Delete your branch from the upstream repository after it's merged, unless
   there is a specific reason not to.
 
-  Tip: Use the following command while being on "main", to list merged
+  Tip: Use the following command while being on "master", to list merged
   branches:
 
-  ```shell
+  ```bash
   git branch --merged | grep -v "\*"
   ```
 
@@ -300,7 +304,8 @@ if we switched away.
 
 #### Communicate with others who may consider reviewing the PR
 
-- If you're going to discuss some issues offline, please comment as such in the PR so that no-one merges it in the meantime - "A few issues here, going to discuss offline" would be enough. When conversation has taken place elsewhere, summarise the conversation as a comment on the PR for the benefit of others.
+- If you're going to discuss some issues offline, please comment as such in the PR so that no-one merges it in the meantime - "A few issues here, going to discuss offline" would be enough.
+  When conversation has taken place elsewhere, summarise the conversation as a comment on the PR for the benefit of others.
 - If you look at a PR but don't feel comfortable merging it please say what
   you've looked at or not so other reviewers know the request hasn't been
   properly reviewed.
@@ -310,11 +315,11 @@ if we switched away.
 #### Helpful things to consider while reviewing
 
 - Try running the code - even if the tests pass it might have bugs
-- Consider security when reviewing code, particularly where there is user input. The [basic security guidance](basic-security.md) might help.
+- Consider security when reviewing code, particularly where there is user input.
 - Remember that a PR does not have to entirely solve the problem. If it adds value on its own it is better to merge now rather than wait for the rest of
   the changes required.
 - Always comment on individual lines in the full-file diff view, not on a commit page because GitHub loses them if you rebase
-- Ensure that any relevant documentation (`README` files, things in the `doc` folder) is up to date with the changes
+- Ensure that any relevant documentation (`README` files, things in the `docs` folder) is up to date with the changes
 
 ### Addressing comments
 
@@ -335,11 +340,11 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
 
 - However, there are cases where rewriting history is legitimate. These are when:
 
-  - You are the only one working on the branch and it is not being reviewed.
+    - You are the only one working on the branch and it is not being reviewed.
 
-  - You want to tidy up your branch (eg. squash commits) and/or rebase it onto the "main" in order to merge it later.
+    - You want to tidy up your branch (eg. squash commits) and/or rebase it onto the "master" in order to merge it later.
 
-  That said, *never rewrite the history of the "main" branch* or any other special branches (ie. used by production or CI servers).
+  That said, *never rewrite the history of the "master" branch* or any other special branches (ie. used by production or CI servers).
 
 - Keep the history *clean* and *simple*. *Just before you merge* your branch:
 
@@ -347,18 +352,18 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
 
 2. Rebase it onto the branch it's going to be merged to:
 
-  ```shell
+  ```bash
   [my-branch] $ git fetch
-  [my-branch] $ git rebase origin/main
+  [my-branch] $ git rebase origin/master
   # then merge
   ```
 
-This results in a branch that can be applied directly to the end of the "main" branch and results in a very simple history.
-*(Note: This strategy is better suited for projects with short-running branches. Otherwise it might be better to occassionally merge the "main" branch instead of rebasing onto it.)*
+This results in a branch that can be applied directly to the end of the "master" branch and results in a very simple history.
+*(Note: This strategy is better suited for projects with short-running branches. Otherwise it might be better to occasionally merge the "master" branch instead of rebasing onto it.)*
 
 - If your branch includes more than one commit, do not merge with a fast-forward:
 
-  ```shell
+  ```bash
   # good - ensures that a merge commit is created
   $ git merge --no-ff my-branch
 
@@ -380,22 +385,15 @@ This results in a branch that can be applied directly to the end of the "main" b
 
 ### Versioning
 
-Versioning will be done using the Semantic Versioning schema
+Versioning will be done using the Semantic Versioning scheme
 Given a version number MAJOR.MINOR.PATCH, increment the:
 
--MAJOR version when you make incompatible API changes
--MINOR version when you add functionality in a backward compatible manner
--PATCH version when you make backward compatible bug fixes
-Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format. Ex. a beta will look like *x.y.z-b*.
+- MAJOR version when you make incompatible API changes
+- MINOR version when you add functionality in a backward compatible manner
+- PATCH version when you make backward compatible bug fixes
 
-## Github
+Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format. For example, a beta release is `1.0.0-beta.1`.
+
+## GitHub
 
 \**TBA**
-
-### Github Projects
-
-### Github Workflows
-
-### Github Actions
-
-### Github Codespaces

@@ -7,7 +7,7 @@ Deviations from Perl Best Practices, which was written for Perl 5.8:
 
 - Code uses the features of modern Perl, such as subroutine signatures, `say` and postfix dereferencing, which replace several older recommendations.
 - Classes are written with [Moo](https://metacpan.org/pod/Moo) instead of inside-out objects.
-- There are no spaces inside parentheses, as in the other guides in this repository.
+- There are no spaces inside parentheses.
 
 ## Table of contents
 
