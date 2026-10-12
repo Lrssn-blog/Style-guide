@@ -1,0 +1,19 @@
+# Link check settings for CI. Run locally with: lychee --config .lychee.toml '**/*.md'
+no_progress = true
+max_retries = 3
+accept = ["200", "429"]
+
+exclude = [
+    # Placeholder URLs used as examples in Git.md.
+    '/commit/#$',
+    '/issues/#$',
+    # Sites that block automated requests.
+    '^https://en\.cppreference\.com/',
+    '^https://www\.oreilly\.com/',
+    # Not reachable without authentication.
+    '^https://github\.com/Lrssn-blog/Templates$',
+    '^https://github\.com/probot/template/',
+    # Obsolete CTAN page (410 Gone).
+    '^https://ctan\.org/pkg/l2tabuen$',
+    '^mailto:',
+]

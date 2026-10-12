@@ -350,9 +350,9 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
 - However, there are cases where rewriting history is legitimate.
   These are when:
 
-    - You are the only one working on the branch and it is not being reviewed.
+  - You are the only one working on the branch and it is not being reviewed.
 
-    - You want to tidy up your branch (eg. squash commits) and/or rebase it onto the "master" in order to merge it later.
+  - You want to tidy up your branch (eg. squash commits) and/or rebase it onto the "master" in order to merge it later.
 
   That said, *never rewrite the history of the "master" branch* or any other special branches (ie. used by production or CI servers).
 
