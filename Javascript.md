@@ -6,7 +6,7 @@ A basic javascript style guide, heavily based on the [Google styleguide](https:/
 
 [TOC]
 
-## Source Files
+## Source files
 
 ### File name
 
@@ -46,7 +46,7 @@ return '\ufeff' + content;  // Prepend a byte order mark.
 
 ## Source file structure
 
-All new source files should be a ECMAScript (ES) module (uses import and export statements).
+All new source files should be an ECMAScript (ES) module (uses import and export statements).
 
 Files consist of the following, in order:
 
@@ -69,12 +69,11 @@ Import statements must not be line wrapped and are therefore an exception to the
 
 ##### Import paths
 
-ES module files must use the import statement to import other ES module files. Do not goog.require another ES module.
+ES module files must use the import statement to import other ES module files. Do not use `require()` to import an ES module.
 
 ```javascript
 import './sideeffects.js';
 
-import * as goog from '../closure/goog/goog.js';
 import * as parent from '../parent.js';
 
 import {name} from './sibling.js';
@@ -427,7 +426,7 @@ A single blank line appears:
 Exception: A blank line between two consecutive properties definitions in an object literal (with no other code between them) is optional. Such blank lines are used as needed to create logical groupings of fields.
 2. Within method bodies, sparingly to create logical groupings of statements. Blank lines at the start or end of a function body are not allowed.
 3. Optionally before the first or after the last method in a class or object literal (neither encouraged nor discouraged).
-4. As required by other sections of this document (e.g. 3.6 goog.require and goog.requireType statements).
+4. As required by other sections of this document, such as the rules for import and export statements.
 
 Multiple consecutive blank lines are permitted, but never required (nor encouraged).
 
@@ -536,7 +535,7 @@ Comments are not enclosed in boxes drawn with asterisks or other characters.
 
 #### Parameter Name Comments
 
-“Parameter name” comments should be used whenever the value and method name do not sufficiently convey the meaning, and refactoring the method to be clearer is infeasible . Their preferred format is before the value with "=":
+“Parameter name” comments should be used whenever the value and method name do not sufficiently convey the meaning, and refactoring the method to be clearer is infeasible. Their preferred format is before the value with "=":
 
 ```javascript
 someFunction(obviousParam, /* shouldRender= */ true, /* name= */ 'hello');
@@ -734,7 +733,7 @@ With ES6, the language now has three different kinds of for loops. All may be us
 
 #### Exceptions
 
-Exceptions are an important part of the language and should be used whenever exceptional cases occur. Always throw `Errors` or subclasses of `Error:` never throw string literals or other objects. Always use `new` when constructing an `Error`.
+Exceptions are an important part of the language and should be used whenever exceptional cases occur. Always throw `Error` or subclasses of `Error`. Never throw string literals or other objects. Always use `new` when constructing an `Error`.
 This treatment extends to `Promise` rejection values as `Promise.reject(obj)` is equivalent to `throw obj;` in async functions.
 Custom exceptions provide a great way to convey additional error information from functions. They should be defined and used wherever the native `Error` type is insufficient.
 Prefer throwing exceptions over ad-hoc error-handling approaches (such as passing an error container reference type, or returning an object with an error property).
