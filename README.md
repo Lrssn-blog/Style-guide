@@ -49,3 +49,8 @@ A style guide for Perl. Based on [perlstyle](https://perldoc.perl.org/perlstyle)
 ## [Rust](./Rust.md)
 
 A style guide for Rust. Based on the [Rust style guide](https://doc.rust-lang.org/style-guide/) and the [Rust API guidelines](https://rust-lang.github.io/api-guidelines/).
+
+## Checks
+
+Pull requests run [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) and a link check via GitHub Actions.
+To lint locally, run `npx markdownlint-cli2`.
