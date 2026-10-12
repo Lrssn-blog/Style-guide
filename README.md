@@ -1,18 +1,18 @@
 # Lrssn style guide
 
-This repo is for all the different style guides i'll use going forward.
+This repo is for all the different style guides I'll use going forward.
 
 ## [Git](./Git.md)
 
-A guide for how to create, structure and maintain git repos. This will also include other Github applications such as Github Projects and Github Hosting.
+A guide for how to create, structure and maintain git repos. This also covers GitHub issues and pull requests.
 
-## [Javascript](./Javascript.md)
+## [JavaScript](./Javascript.md)
 
-A style guide for Javascript. Heavily based on the [Google styleguide](https://google.github.io/styleguide/jsguide.html).
+A style guide for JavaScript. Heavily based on the [Google styleguide](https://google.github.io/styleguide/jsguide.html).
 
-## [Typescript](./Typescript.md)
+## [TypeScript](./Typescript.md)
 
-A style guide for Typescript. Heavily based on the [Google styleguide](https://google.github.io/styleguide/tsguide.html).
+A style guide for TypeScript. Heavily based on the [Google styleguide](https://google.github.io/styleguide/tsguide.html).
 
 ## [Docker](./Docker.md)
 
