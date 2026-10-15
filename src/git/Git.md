@@ -14,7 +14,7 @@ An editorconfig will make sure every editor behaves the same. For more informati
 What every editorconfig should include are:
 
 - indent_style: The preferred style is spaces.
-  Go is the exception, as `gofmt` indents with tabs (see the [Go style guide](./Go.md#editorconfig)).
+  Go is the exception, as `gofmt` indents with tabs (see the [Go style guide](../go/Go.md#editorconfig)).
 - indent_size: The preferred size is 4.
 - tab_width: This should match the indent_size.
 - end_of_line: LF is preferred for intercompatibility.
@@ -28,7 +28,7 @@ These may look different depending on the language but an example is included in
 
 #### .gitattributes
 
-Add `*.sh text eol=lf` to keep shell scripts on LF line endings, even when Git checks them out on Windows. See the [Bash style guide](./Bash.md#line-endings).
+Add `*.sh text eol=lf` to keep shell scripts on LF line endings, even when Git checks them out on Windows. See the [Bash style guide](../bash/Bash.md#line-endings).
 
 #### .gitignore
 

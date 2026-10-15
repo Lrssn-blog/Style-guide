@@ -51,7 +51,7 @@ Commands that are installed on the `PATH` have no extension, since the user shou
 
 Libraries, which are only meant to be sourced by other scripts, have the `.sh` extension and are not executable.
 
-Scripts that are not needed to run the project belong in the `scripts` folder, as described in the [Git style guide](./Git.md#scripts).
+Scripts that are not needed to run the project belong in the `scripts` folder, as described in the [Git style guide](../git/Git.md#scripts).
 
 ### File encoding and line endings
 

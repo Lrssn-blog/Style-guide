@@ -178,7 +178,7 @@ Dies if the file cannot be read.
 
 ### Versions
 
-Declare the version of a module in the `package` statement, as a [Semantic Version](./Git.md#versioning) with a leading `v`.
+Declare the version of a module in the `package` statement, as a [Semantic Version](../git/Git.md#versioning) with a leading `v`.
 
 ```perl
 package Lrssn::Config v1.2.3;

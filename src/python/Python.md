@@ -6,7 +6,7 @@ It is heavily based on the [Google Python style guide](https://google.github.io/
 Deviations from the Google guide:
 
 - Code is formatted with the [Ruff](https://docs.astral.sh/ruff/) formatter, which follows the Black code style, and linted with Ruff instead of Pylint.
-- Strings use single quotes, as in the [Javascript](./Javascript.md#string-literals) and [TypeScript](./Typescript.md) guides.
+- Strings use single quotes, as in the [Javascript](../javascript/Javascript.md#string-literals) and [TypeScript](../typescript/Typescript.md) guides.
   Docstrings use triple double quotes.
 - All public functions and methods have type annotations.
 

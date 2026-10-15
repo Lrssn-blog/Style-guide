@@ -47,7 +47,7 @@ Other documents use lowercase names with hyphens between words, for example `doc
 Follow the convention of the repository you are working in.
 This repository names its guides after the topic with a leading capital letter (`Git.md`, `Javascript.md`), and new guides follow that pattern.
 
-Documentation that is not a repository level document belongs in the `docs` folder, as described in the [Git style guide](./Git.md#documentation).
+Documentation that is not a repository level document belongs in the `docs` folder, as described in the [Git style guide](../git/Git.md#documentation).
 
 ### File encoding: UTF-8
 
@@ -497,11 +497,11 @@ The reader should be able to understand the link without reading the rest of the
 Never use "here", "this link" or "click here" as link text.
 
 ```markdown
-Good: See the [Git style guide](./Git.md) for commit messages.
+Good: See the [Git style guide](../git/Git.md) for commit messages.
 
-Bad: See [here](./Git.md) for commit messages.
+Bad: See [here](../git/Git.md) for commit messages.
 
-Bad: See the Git style guide for commit messages: [link](./Git.md).
+Bad: See the Git style guide for commit messages: [link](../git/Git.md).
 ```
 
 Keep link text short.
@@ -513,7 +513,7 @@ Link to files in the same repository with relative paths.
 Absolute links to GitHub point at the original repository, so they are wrong in forks, and they do not work in a local clone.
 
 ```markdown
-Good: [Javascript style guide](./Javascript.md)
+Good: [Javascript style guide](../javascript/Javascript.md)
 
 Bad: [Javascript style guide](https://github.com/Lrssn-blog/Style-guide/blob/master/Javascript.md)
 ```
@@ -677,7 +677,7 @@ title: Getting started
 
 ## Repository documents
 
-The [Git style guide](./Git.md#documents) describes which documents a repository should have and what they should contain.
+The [Git style guide](../git/Git.md#documents) describes which documents a repository should have and what they should contain.
 The layout and formatting rules in this guide apply to all of them.
 
 ## Tooling
@@ -749,4 +749,4 @@ jobs:
 - [Google Markdown style guide](https://google.github.io/styleguide/docguide/style.html)
 - [markdownlint rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
 - [GitHub Flavored Markdown specification](https://github.github.com/gfm/)
-- [Git style guide](./Git.md)
+- [Git style guide](../git/Git.md)

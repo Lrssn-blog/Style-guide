@@ -20,14 +20,13 @@ readonly repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 find "${wiki_dir}" -maxdepth 1 -type f \( -name '*.md' -o -name '*.jpeg' \) \
     -delete
 
-for file in "${repo_dir}"/*.md; do
+for file in "${repo_dir}/README.md" "${repo_dir}"/src/*/*.md; do
     name="$(basename "${file}" .md)"
     if [[ "${name}" == "README" ]]; then
         name="Home"
     fi
-    sed -E 's#\]\((\./)?([A-Za-z_-]+)\.md(\#[^)]*)?\)#](\2\3)#g' "${file}" \
-        | sed -E 's#\]\(README(\#[^)]*)?\)#](Home\1)#g' \
+    sed -E 's#\]\(([^):]*/)?([A-Za-z_-]+)\.md(\#[^)]*)?\)#](\2\3)#g' "${file}" \
         > "${wiki_dir}/${name}.md"
 done
 
-cp "${repo_dir}"/*.jpeg "${wiki_dir}/"
+cp "${repo_dir}"/src/*/*.jpeg "${wiki_dir}/"
