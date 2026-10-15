@@ -22,6 +22,8 @@ CONFIGS = {
     'src/docker/.hadolint.yaml': [('docker/Docker.md', 'yaml', 'failure-threshold')],
     'src/go/.editorconfig': [('go/Go.md', 'ini', '[{*.go')],
     'src/go/.golangci.yml': [('go/Go.md', 'yaml', 'version: "2"')],
+    'src/haskell/fourmolu.yaml': [('haskell/Haskell.md', 'yaml', 'indentation: 4')],
+    'src/haskell/.hlint.yaml': [('haskell/Haskell.md', 'yaml', '# Suggestions of')],
     'src/latex/.chktexrc': [('latex/Latex.md', 'text', 'CmdLine')],
     'src/latex/.latexindent.yaml': [('latex/Latex.md', 'yaml', 'defaultIndent')],
     'src/markdown/.markdownlint.json': [('markdown/Markdown.md', 'json', '{')],

@@ -50,6 +50,10 @@ A style guide for Perl. Based on [perlstyle](https://perldoc.perl.org/perlstyle)
 
 A style guide for Rust. Based on the [Rust style guide](https://doc.rust-lang.org/style-guide/) and the [Rust API guidelines](https://rust-lang.github.io/api-guidelines/).
 
+## [Haskell](./src/haskell/Haskell.md)
+
+A style guide for Haskell. Based on [Johan Tibell's style guide](https://github.com/tibbe/haskell-style-guide) and the [Kowainik style guide](https://kowainik.github.io/posts/2019-02-06-style-guide).
+
 ## Checks
 
 Pull requests run [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) and a link check via GitHub Actions.

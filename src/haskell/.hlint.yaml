@@ -1,0 +1,12 @@
+# Suggestions of these groups are enabled in addition to the defaults.
+- group: {name: dollar, enabled: true}
+- group: {name: generalise, enabled: true}
+
+# Partial functions and unsafe code are banned. See "Partial functions".
+- functions:
+      - {name: head, within: []}
+      - {name: tail, within: []}
+      - {name: init, within: []}
+      - {name: last, within: []}
+      - {name: fromJust, within: []}
+      - {name: unsafePerformIO, within: []}
