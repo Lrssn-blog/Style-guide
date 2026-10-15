@@ -54,3 +54,10 @@ A style guide for Rust. Based on the [Rust style guide](https://doc.rust-lang.or
 
 Pull requests run [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) and a link check via GitHub Actions.
 To lint locally, run `npx markdownlint-cli2`.
+
+## Wiki
+
+The guides are mirrored to the [GitHub wiki](https://github.com/Lrssn-blog/Style-guide/wiki) whenever `master` changes.
+Do not edit the wiki directly, since the next sync overwrites it.
+Edit the Markdown files in this repository instead.
+The sync is done by [`scripts/sync-wiki.sh`](./scripts/sync-wiki.sh) in the `Wiki` workflow.

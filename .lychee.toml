@@ -10,6 +10,8 @@ exclude = [
     # Sites that block automated requests.
     '^https://en\.cppreference\.com/',
     '^https://www\.oreilly\.com/',
+    # Times out from GitHub Actions runners.
+    '^https://([a-z]+\.)?gnu\.org/',
     # Not reachable without authentication.
     '^https://github\.com/Lrssn-blog/Templates$',
     '^https://github\.com/probot/template/',
