@@ -55,6 +55,13 @@ A style guide for Rust. Based on the [Rust style guide](https://doc.rust-lang.or
 Pull requests run [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) and a link check via GitHub Actions.
 To lint locally, run `npx markdownlint-cli2`.
 
+## Config files
+
+Most guides have a `Tooling` section with linter and formatter settings.
+The same settings are available as ready to copy files next to each guide, for example [`src/cpp/.clang-format`](./src/cpp/.clang-format).
+They are generated from the code blocks in the guides, and CI fails if they differ.
+After changing a block in a guide, run `scripts/configs.py --write` to update the files.
+
 ## Wiki
 
 The guides are mirrored to the [GitHub wiki](https://github.com/Lrssn-blog/Style-guide/wiki) whenever `master` changes.

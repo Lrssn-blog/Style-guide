@@ -1,0 +1,7 @@
+---
+Language: JavaScript
+BasedOnStyle: Google
+IndentWidth: 4
+ContinuationIndentWidth: 8
+ColumnLimit: 80
+JavaScriptQuotes: Single
