@@ -22,8 +22,8 @@ find "${wiki_dir}" -maxdepth 1 -type f \( -name '*.md' -o -name '*.jpeg' \) \
 
 for file in "${repo_dir}/README.md" "${repo_dir}"/src/*/*.md; do
     name="$(basename "${file}" .md)"
-    # AGENTS.md is a ready to copy template, not a guide.
-    if [[ "${name}" == "AGENTS" ]]; then
+    # AGENTS.template.md is a ready to copy template, not a guide.
+    if [[ "${name}" == "AGENTS.template" ]]; then
         continue
     fi
     if [[ "${name}" == "README" ]]; then

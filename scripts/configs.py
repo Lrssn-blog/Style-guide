@@ -16,7 +16,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Each config is the concatenation of one or more code blocks of a guide.
 # A block is selected by its info string and the start of its first line.
 CONFIGS = {
-    'src/agentic/AGENTS.md': [('agentic/Agentic.md', 'markdown', '# AGENTS.md')],
+    'src/agentic/AGENTS.template.md': [('agentic/Agentic.md', 'markdown', '# AGENTS.md')],
     'src/bash/.editorconfig': [('bash/Bash.md', 'ini', '[*.sh]')],
     'src/cpp/.clang-format': [('cpp/Cpp.md', 'yaml', '---\nLanguage: Cpp')],
     'src/cpp/.clang-tidy': [('cpp/Cpp.md', 'yaml', '---\nChecks:')],

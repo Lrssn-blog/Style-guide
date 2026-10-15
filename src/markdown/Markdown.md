@@ -445,14 +445,14 @@ The reader should be able to copy the whole block and run it.
 
 ```bash
 git fetch origin
-git rebase origin/master
+git rebase origin/main
 ```
 
 When a block shows commands together with their output, use the `console` language and prefix the commands with a dollar sign and a space (`$`) so that the reader can tell them apart from the output.
 
 ```console
 $ git branch --show-current
-master
+main
 ```
 
 ### Long commands
@@ -515,7 +515,7 @@ Absolute links to GitHub point at the original repository, so they are wrong in 
 ```markdown
 Good: [Javascript style guide](../javascript/Javascript.md)
 
-Bad: [Javascript style guide](https://github.com/Lrssn-blog/Style-guide/blob/master/Javascript.md)
+Bad: [Javascript style guide](https://github.com/Lrssn-blog/Style-guide/blob/main/Javascript.md)
 ```
 
 Link to a section in the same document by its anchor.
