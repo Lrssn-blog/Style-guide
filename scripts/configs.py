@@ -33,6 +33,7 @@ CONFIGS = {
         ('python/Python.md', 'toml', '[tool.ruff]'),
         ('python/Python.md', 'toml', '[tool.mypy]'),
     ],
+    'src/ruby/.rubocop.yml': [('ruby/Ruby.md', 'yaml', 'AllCops:')],
     'src/rust/rustfmt.toml': [('rust/Rust.md', 'toml', 'max_width')],
     'src/typescript/.clang-format': [
         ('typescript/Typescript.md', 'yaml', '---\nLanguage: JavaScript')],
