@@ -77,7 +77,7 @@ After changing a block in a guide, run `scripts/configs.py --write` to update th
 
 ## Wiki
 
-The guides are mirrored to the [GitHub wiki](https://github.com/Lrssn-blog/Style-guide/wiki) whenever `master` changes.
+The guides are mirrored to the [GitHub wiki](https://github.com/Lrssn-blog/Style-guide/wiki) whenever `main` changes.
 Do not edit the wiki directly, since the next sync overwrites it.
 Edit the Markdown files in this repository instead.
 The sync is done by [`scripts/sync-wiki.sh`](./scripts/sync-wiki.sh) in the `Wiki` workflow.

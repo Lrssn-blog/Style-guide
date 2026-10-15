@@ -242,6 +242,25 @@ In the comments should be a discussion on how the feature will impact developmen
 
 ## Branches
 
+### Main and staging
+
+`main` is the root of every repository.
+It is the default branch, it exists from the first commit, and it always holds code that can be released.
+Do not use `master`, `trunk` or `develop` instead.
+Every other branch starts from `main`, and every pull request targets `main`.
+
+A repository may also have a `staging` branch, but only when it needs a place to verify changes before a release, such as a pre-production environment that is deployed from a branch.
+Do not add `staging` by default.
+
+- `staging` starts from `main`, and is only updated by merging `main` into it.
+- `staging` is never merged into `main`.
+  Fixes found there are made on a branch from `main`, merged into `main` with a pull request, and then merged into `staging`.
+- Never commit directly to `main` or `staging`, and never rewrite their history.
+- Do not add other long-lived branches for environments, such as `production`.
+  Deploy production from `main`.
+
+### Working branches
+
 - Choose *short* and *descriptive* names:
 
   ```bash
@@ -274,11 +293,11 @@ In the comments should be a discussion on how the feature will impact developmen
   ```
 
   Merge at will the personal branches to the team-wide branch.
-  Eventually, the team-wide branch will be merged to "master".
+  Eventually, the team-wide branch will be merged to "main".
 
 - Delete your branch from the upstream repository after it's merged, unless there is a specific reason not to.
 
-  Tip: Use the following command while being on "master", to list merged branches:
+  Tip: Use the following command while being on "main", to list merged branches:
 
   ```bash
   git branch --merged | grep -v "\*"
@@ -288,7 +307,7 @@ In the comments should be a discussion on how the feature will impact developmen
 
 ### Opening a request
 
-- Before opening the PR, make sure you're up to date with `master` so that your changes are easier to merge
+- Before opening the PR, make sure you're up to date with `main` so that your changes are easier to merge
 - The title and description should help the reviewer.
   Make the title succinct and descriptive, and then add detail in the description.
 - The description should summarise your changes and include useful links, eg to an issue, a ticket or a related PR.
@@ -334,7 +353,7 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
 - While a PR is in review, add a new commit for each round of fixes, for example to rename a variable or add a missing test.
   Do not amend or rebase commits that are already pushed.
 - Before the first push, or on a branch that only you use, amend or squash freely.
-  Then push with `git push --force-with-lease`, never `--force`, and never to `master`.
+  Then push with `git push --force-with-lease`, never `--force`, and never to `main`.
 - If you are unsure how to do this, describe what you tried in the PR.
 - Major changes should probably be addressed in a separate commit - be sure that when addressing changes you follow existing commit guidelines - "Addressed feedback" isn't an acceptable commit message
 - Explicitly comment that all relevant comments have been addressed to notify any watchers - you don't need to do this on a per-comment basis
@@ -354,9 +373,9 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
 
   - You are the only one working on the branch and it is not being reviewed.
 
-  - You want to tidy up your branch (eg. squash commits) and/or rebase it onto the "master" in order to merge it later.
+  - You want to tidy up your branch (eg. squash commits) and/or rebase it onto the "main" in order to merge it later.
 
-  That said, *never rewrite the history of the "master" branch* or any other special branches (ie. used by production or CI servers).
+  That said, *never rewrite the history of the "main" branch* or any other special branches (ie. used by production or CI servers).
 
 - Keep the history *clean* and *simple*.
   *Just before you merge* your branch:
@@ -369,14 +388,14 @@ Any comments flagged as blocking should be addressed. This includes spelling or 
   ```bash
   # Not yet reviewed by anyone else: rebase.
   [my-branch] $ git fetch
-  [my-branch] $ git rebase origin/master
+  [my-branch] $ git rebase origin/main
 
   # Already reviewed: merge instead, which keeps history intact.
-  [my-branch] $ git merge origin/master
+  [my-branch] $ git merge origin/main
   ```
 
-Rebasing gives a branch that can be applied directly to the end of the "master" branch, with a very simple history.
-*(Note: This strategy is better suited for projects with short-running branches. Otherwise it might be better to occasionally merge the "master" branch instead of rebasing onto it.)*
+Rebasing gives a branch that can be applied directly to the end of the "main" branch, with a very simple history.
+*(Note: This strategy is better suited for projects with short-running branches. Otherwise it might be better to occasionally merge the "main" branch instead of rebasing onto it.)*
 
 - If your branch includes more than one commit, do not merge with a fast-forward:
 
