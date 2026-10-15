@@ -63,6 +63,11 @@ A style guide for Ruby. Based on the community [Ruby Style Guide](https://rubyst
 A guide for working with AI coding agents: the instruction file, scoping tasks, permissions, verification, Git and review.
 Based on the [AGENTS.md](https://agents.md/) convention and the [Claude Code documentation](https://code.claude.com/docs/).
 
+## [Brand](https://github.com/Lrssn-blog/Brand-guide)
+
+A guide for the Lrssn brand: name, logo, colors, typography, and voice and tone.
+It lives in its own repository and builds on the [color palette](./src/colors/Colors.md).
+
 ## Checks
 
 Pull requests run [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) and a link check via GitHub Actions.
