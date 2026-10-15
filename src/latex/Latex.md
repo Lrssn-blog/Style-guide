@@ -1,9 +1,9 @@
 # LaTeX Style Guide
 
 A style guide and theme for writing documents and packages in LaTeX.
-It collects common LaTeX conventions, including the list of obsolete commands from [l2tabu](https://ctan.org/pkg/l2tabuen), and defines the Lrssn theme with the colors from the [color palette](./Colors.md).
+It collects common LaTeX conventions, including the list of obsolete commands from [l2tabu](https://ctan.org/pkg/l2tabuen), and defines the Lrssn theme with the colors from the [color palette](../colors/Colors.md).
 
-The house rules apply to LaTeX files as well: files use UTF-8 and LF line endings, environments are indented by 4 spaces, and prose is written one sentence per line, as in the [Markdown style guide](./Markdown.md#one-sentence-per-line).
+The house rules apply to LaTeX files as well: files use UTF-8 and LF line endings, environments are indented by 4 spaces, and prose is written one sentence per line, as in the [Markdown style guide](../markdown/Markdown.md#one-sentence-per-line).
 
 ## Table of contents
 
@@ -608,7 +608,7 @@ Choose a citation style that fits the field, such as `authoryear`, `numeric` or 
 
 ### Colors
 
-The theme defines the colors from the [color palette](./Colors.md) for use with `xcolor`.
+The theme defines the colors from the [color palette](../colors/Colors.md) for use with `xcolor`.
 
 | Name | HEX | Use |
 | --- | --- | --- |
@@ -710,7 +710,7 @@ A class builds on an existing class with `\LoadClass`.
 
 Every package and class starts with `\NeedsTeXFormat` and `\ProvidesPackage` or `\ProvidesClass`.
 The optional argument holds the release date, the version and a short description.
-The version follows [Semantic Versioning](./Git.md#versioning), and matches the Git tag of the release.
+The version follows [Semantic Versioning](../git/Git.md#versioning), and matches the Git tag of the release.
 
 ```latex
 \NeedsTeXFormat{LaTeX2e}
@@ -783,4 +783,4 @@ latexindent --local=.latexindent.yaml --overwrite main.tex
 - [The LaTeX project documentation](https://www.latex-project.org/help/documentation/)
 - [KOMA-Script](https://ctan.org/pkg/koma-script)
 - [biblatex](https://ctan.org/pkg/biblatex)
-- [Color palette](./Colors.md)
+- [Color palette](../colors/Colors.md)

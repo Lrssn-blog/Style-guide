@@ -1,7 +1,7 @@
 # TypeScript Style Guide
 
 A style guide for TypeScript, heavily based on the [Google TypeScript style guide](https://google.github.io/styleguide/tsguide.html).
-TypeScript is a superset of JavaScript, so everything in the [Javascript style guide](./Javascript.md) applies unless this guide says otherwise.
+TypeScript is a superset of JavaScript, so everything in the [Javascript style guide](../javascript/Javascript.md) applies unless this guide says otherwise.
 This guide covers what is specific to TypeScript.
 
 Deviations from the Google guide:
@@ -35,7 +35,7 @@ Source files are encoded in UTF-8.
 
 ### Special characters
 
-The rules for whitespace characters, escape sequences and non-ASCII characters are the same as in the [Javascript style guide](./Javascript.md#special-characters).
+The rules for whitespace characters, escape sequences and non-ASCII characters are the same as in the [Javascript style guide](../javascript/Javascript.md#special-characters).
 
 ## Source file structure
 
@@ -129,7 +129,7 @@ testing.describe('foo', () => {
 #### Renaming imports
 
 Only rename imports to avoid a name collision, when the imported name is generated or unclear, or when the name is clearer in the context of the importing file.
-Use components of the imported module's path in the new name, as described in the [Javascript style guide](./Javascript.md#naming-imports).
+Use components of the imported module's path in the new name, as described in the [Javascript style guide](../javascript/Javascript.md#naming-imports).
 
 ```typescript
 import {Cat as BigCat} from './biganimals.js';
@@ -227,7 +227,7 @@ Use files and ES modules instead.
 
 ## Formatting
 
-TypeScript follows the [formatting rules of the Javascript style guide](./Javascript.md#formatting).
+TypeScript follows the [formatting rules of the Javascript style guide](../javascript/Javascript.md#formatting).
 In short:
 
 - Blocks are indented by 4 spaces.
@@ -455,7 +455,7 @@ const a = 1, b = 2;
 ### Array literals
 
 Do not use the `Array()` constructor.
-Use array literals instead, as in the [Javascript style guide](./Javascript.md#array-literals).
+Use array literals instead, as in the [Javascript style guide](../javascript/Javascript.md#array-literals).
 
 #### Array types
 
@@ -793,7 +793,7 @@ Never use `this` to refer to the global object, the context of an `eval` or the 
 
 #### String literals
 
-Use single quotes for ordinary string literals and template literals for interpolation, as in the [Javascript style guide](./Javascript.md#string-literals).
+Use single quotes for ordinary string literals and template literals for interpolation, as in the [Javascript style guide](../javascript/Javascript.md#string-literals).
 Do not use line continuations.
 
 #### Number literals
@@ -1333,7 +1333,7 @@ class UserCard {
 
 ### Parameter name comments
 
-Use parameter name comments when the meaning of an argument is not clear from the call, as described in the [Javascript style guide](./Javascript.md#parameter-name-comments).
+Use parameter name comments when the meaning of an argument is not clear from the call, as described in the [Javascript style guide](../javascript/Javascript.md#parameter-name-comments).
 
 ```typescript
 someFunction(obviousParam, /* shouldRender= */ true, /* name= */ 'hello');
@@ -1447,5 +1447,5 @@ npx eslint src
 ## See also
 
 - [Google TypeScript style guide](https://google.github.io/styleguide/tsguide.html)
-- [Javascript style guide](./Javascript.md)
+- [Javascript style guide](../javascript/Javascript.md)
 - [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/intro.html)

@@ -75,7 +75,7 @@ See [Docker Compose](#docker-compose).
 ### Line endings
 
 Scripts that are copied into Linux images must have LF line endings, or they fail with errors such as `env: 'sh\r': No such file or directory`.
-Add the scripts to `.gitattributes`, as described in the [Bash style guide](./Bash.md#line-endings).
+Add the scripts to `.gitattributes`, as described in the [Bash style guide](../bash/Bash.md#line-endings).
 
 ## Dockerfile structure
 
@@ -528,7 +528,7 @@ ghcr.io/lrssn-blog/api
 
 ### Tags
 
-Tag release images with their [Semantic Version](./Git.md#versioning), and with the shorter versions that point to the newest matching release.
+Tag release images with their [Semantic Version](../git/Git.md#versioning), and with the shorter versions that point to the newest matching release.
 
 | Tag | Points to |
 | --- | --- |
