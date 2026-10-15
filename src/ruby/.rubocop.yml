@@ -1,0 +1,39 @@
+AllCops:
+    NewCops: enable
+    SuggestExtensions: false
+    TargetRubyVersion: 3.3
+
+Layout/LineLength:
+    Max: 80
+
+Layout/IndentationWidth:
+    Width: 4
+
+# Indent continuation lines by one level instead of aligning them.
+Layout/ArgumentAlignment:
+    EnforcedStyle: with_fixed_indentation
+Layout/ParameterAlignment:
+    EnforcedStyle: with_fixed_indentation
+Layout/FirstArgumentIndentation:
+    EnforcedStyle: consistent
+Layout/FirstArrayElementIndentation:
+    EnforcedStyle: consistent
+Layout/FirstHashElementIndentation:
+    EnforcedStyle: consistent
+Layout/MultilineMethodCallIndentation:
+    EnforcedStyle: indented
+
+Style/StringLiterals:
+    EnforcedStyle: single_quotes
+Style/TrailingCommaInArguments:
+    EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArrayLiteral:
+    EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+    EnforcedStyleForMultiline: comma
+
+Metrics/MethodLength:
+    Max: 20
+Metrics/BlockLength:
+    Exclude:
+        - spec/**/*
