@@ -58,6 +58,11 @@ A style guide for Haskell. Based on [Johan Tibell's style guide](https://github.
 
 A style guide for Ruby. Based on the community [Ruby Style Guide](https://rubystyle.guide/) and [RuboCop](https://rubocop.org/).
 
+## [Agentic development](./src/agentic/Agentic.md)
+
+A guide for working with AI coding agents: the instruction file, scoping tasks, permissions, verification, Git and review.
+Based on the [AGENTS.md](https://agents.md/) convention and the [Claude Code documentation](https://code.claude.com/docs/).
+
 ## Checks
 
 Pull requests run [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) and a link check via GitHub Actions.
