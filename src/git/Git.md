@@ -163,6 +163,8 @@ The description is what has been changed.
 
 The body is why it has been changed. Here is also information about breaking changes such as deprecation of functions or changes to schemas.
 
+For commits and pull requests written with an AI coding agent, see also the [Agentic development style guide](../agentic/Agentic.md#git-and-pull-requests).
+
 The footer holds issue references, such as `Closes #42`, and trailers such as `Co-Authored-By:` or `Claude-Session:`. Put each trailer on its own line after a blank line.
 
 ## Folders
