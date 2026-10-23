@@ -73,6 +73,11 @@ It lives in its own repository and builds on the [color palette](./src/colors/Co
 Lrssn Shore and Lrssn Hearth, the light and dark color themes, for VS Code, Neovim, terminals, Omarchy, the website and LaTeX.
 They live in their own repository, and the [color palette](./src/colors/Colors.md) lists their main colors.
 
+## [Design system](https://github.com/Lrssn-blog/Design-system)
+
+The tokens, base styles and components that make a page look like Lrssn, in plain CSS, in Lrssn Shore and Lrssn Hearth.
+It lives in its own repository, and takes its colors from the color themes and its rules from the brand guide.
+
 ## Checks
 
 Pull requests run [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) and a link check via GitHub Actions.
