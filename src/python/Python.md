@@ -1,8 +1,8 @@
 # Python Style Guide
 
 A style guide for Python.
-It is heavily based on the [Google Python style guide](https://google.github.io/styleguide/pyguide.html) and [PEP 8](https://peps.python.org/pep-0008/).
-This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and the code samples it takes from that guide are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+It is heavily based on the [Google Python style guide](https://google.github.io/styleguide/pyguide.html), which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and [PEP 8](https://peps.python.org/pep-0008/).
+The code examples are our own.
 
 Deviations from the Google guide:
 
@@ -113,8 +113,8 @@ load('42')
 The exceptions are symbols from `typing`, `collections.abc` and `typing_extensions`, which may be imported directly.
 
 ```python
-from collections.abc import Mapping, Sequence
-from typing import Any, NewType
+from collections.abc import Iterable, Mapping
+from typing import Any, Literal
 ```
 
 #### Full package paths
@@ -225,12 +225,12 @@ When a call, a definition or a literal does not fit on one line, break after the
 The closing bracket on its own line separates the arguments from the body that follows.
 
 ```python
-foo = long_function_name(
+report = create_report(
     argument_one, argument_two, argument_three, argument_four
 )
 
 
-def long_function_name(
+def create_report(
     argument_one: int, argument_two: int, argument_three: int
 ) -> None:
     print(argument_one)
@@ -442,12 +442,12 @@ Use a loop when it gets more complicated.
 
 ```python
 # Good:
-result = [mapping_expr for value in iterable if filter_expr]
+names = [user.name for user in users if user.is_active]
 squares = {x: x * x for x in range(10)}
 total = sum(x * x for x in numbers)
 
 # Bad:
-result = [(x, y) for x in range(10) for y in range(5) if x * y > 10]
+cells = [(row, col) for row in range(8) for col in range(8) if row != col]
 ```
 
 ### Default iterators and operators
@@ -791,7 +791,7 @@ Continuation lines within a section are indented by 4 more spaces.
 def fetch_rows(
     table: Table,
     keys: Sequence[str],
-    require_all_keys: bool = False,
+    strict: bool = False,
 ) -> Mapping[str, tuple[str, ...]]:
     """Fetches rows from a table.
 
@@ -801,8 +801,8 @@ def fetch_rows(
     Args:
         table: An open table instance.
         keys: The keys of the rows to fetch.
-        require_all_keys: If True, only rows with values set for all keys
-            are returned.
+        strict: If True, only rows with values set for all keys are
+            returned.
 
     Returns:
         A dict that maps keys to the row data that was fetched. Each row is
@@ -827,18 +827,18 @@ class SampleClass:
     Longer class information goes here.
 
     Attributes:
-        likes_spam: Whether we like SPAM or not.
-        eggs: The number of eggs we have laid.
+        likes_tea: Whether the drinker prefers tea over coffee.
+        cups: The number of cups poured so far.
     """
 
-    def __init__(self, likes_spam: bool = False) -> None:
-        """Initializes the instance based on spam preference.
+    def __init__(self, likes_tea: bool = False) -> None:
+        """Creates a drinker with the given preference.
 
         Args:
-            likes_spam: Whether the instance likes SPAM or not.
+            likes_tea: Whether the drinker prefers tea over coffee.
         """
-        self.likes_spam = likes_spam
-        self.eggs = 0
+        self.likes_tea = likes_tea
+        self.cups = 0
 ```
 
 ### Block and inline comments
@@ -849,10 +849,9 @@ Explain why the code does something, not what it does.
 Inline comments are separated from the code by at least two spaces, and start with `#` and a single space.
 
 ```python
-# We use a weighted dictionary search to find out where i is in
-# the array. We extrapolate position based on the largest num
-# in the array and the array size and then do binary search to
-# get the exact number.
+# Retry with exponential backoff. The delay doubles after each failed
+# attempt, up to the cap, so that a struggling server has time to
+# recover before the next request reaches it.
 
 if i & (i - 1) == 0:  # True if i is 0 or a power of 2.
     ...
