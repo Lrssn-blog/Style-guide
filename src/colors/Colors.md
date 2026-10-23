@@ -6,13 +6,13 @@ Both are built around the brand orange `#fc6600`.
 - Shore is a summer evening on a beach, with a bonfire, clear tropical water and coral.
 - Hearth is a cottage on New Year's Eve, warm by the fire while fireworks go off in the cold outside.
 
-The colors are defined once, in the [ColorTheme](https://github.com/Lrssn-blog/ColorTheme) repository.
+The colors are defined once, in the [Color-theme](https://github.com/Lrssn-blog/Color-theme) repository.
 It generates the themes for editors, terminals, the desktop, the website and LaTeX from them.
-Its [color guide](https://github.com/Lrssn-blog/ColorTheme/blob/main/Theme.md) lists every color, and the [brand guide](https://github.com/Lrssn-blog/Brand-guide) says how to use them.
+Its [color guide](https://github.com/Lrssn-blog/Color-theme/blob/main/Theme.md) lists every color, and the [brand guide](https://github.com/Lrssn-blog/Brand-guide) says how to use them.
 
 ## Main colors
 
-The roles are the names in ColorTheme's palettes.
+The roles are the names in Color-theme's palettes.
 
 | Role | Shore | Hearth | Use |
 | --- | --- | --- | --- |
@@ -39,6 +39,6 @@ The roles are the names in ColorTheme's palettes.
 - Put `#14171c` text on an orange fill, and never white.
 - Never use color as the only way to convey information, as some readers cannot see it.
 - Do not add colors that are not in the palettes.
-  To change a color, change it in ColorTheme, whose build checks the contrast of every text color.
+  To change a color, change it in Color-theme, whose build checks the contrast of every text color.
 
 In LaTeX, the [Lrssn theme](../latex/Latex.md#the-lrssn-theme) defines these colors for `xcolor`.

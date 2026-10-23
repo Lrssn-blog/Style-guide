@@ -84,7 +84,7 @@ report/
 - References are in `references.bib`.
 
 Shared packages, such as the Lrssn theme, are kept in their own repository and installed in the local TeX tree, rather than copied into every project.
-The Lrssn theme lives in the [ColorTheme](https://github.com/Lrssn-blog/ColorTheme) repository.
+The Lrssn theme lives in the [Color-theme](https://github.com/Lrssn-blog/Color-theme) repository.
 
 ### File names
 
@@ -607,13 +607,13 @@ Choose a citation style that fits the field, such as `authoryear`, `numeric` or 
 
 ## The Lrssn theme
 
-The Lrssn theme is the package `lrssntheme`, from the [ColorTheme](https://github.com/Lrssn-blog/ColorTheme) repository.
+The Lrssn theme is the package `lrssntheme`, from the [Color-theme](https://github.com/Lrssn-blog/Color-theme) repository.
 It brings the colors of the [color palette](../colors/Colors.md) to LaTeX, in two themes: Lrssn Shore, which is light, and Lrssn Hearth, which is dark.
-ColorTheme generates the package from its palettes, so do not copy it into a project or edit it by hand.
+Color-theme generates the package from its palettes, so do not copy it into a project or edit it by hand.
 
 ### Installing the theme
 
-Copy `latex/lrssntheme.sty` from ColorTheme to the local TeX tree, for example `~/texmf/tex/latex/lrssntheme/`.
+Copy `latex/lrssntheme.sty` from Color-theme to the local TeX tree, for example `~/texmf/tex/latex/lrssntheme/`.
 
 ### Using the theme
 
@@ -767,4 +767,4 @@ latexindent --local=.latexindent.yaml --overwrite main.tex
 - [KOMA-Script](https://ctan.org/pkg/koma-script)
 - [biblatex](https://ctan.org/pkg/biblatex)
 - [Color palette](../colors/Colors.md)
-- [ColorTheme](https://github.com/Lrssn-blog/ColorTheme)
+- [Color-theme](https://github.com/Lrssn-blog/Color-theme)
