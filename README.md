@@ -68,6 +68,11 @@ Based on the [AGENTS.md](https://agents.md/) convention and the [Claude Code doc
 A guide for the Lrssn brand: name, logo, colors, typography, and voice and tone.
 It lives in its own repository and builds on the [color palette](./src/colors/Colors.md).
 
+## [Color themes](https://github.com/Lrssn-blog/Color-theme)
+
+Lrssn Shore and Lrssn Hearth, the light and dark color themes, for VS Code, Neovim, terminals, Omarchy, the website and LaTeX.
+They live in their own repository, and the [color palette](./src/colors/Colors.md) lists their main colors.
+
 ## Checks
 
 Pull requests run [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) and a link check via GitHub Actions.
