@@ -1,8 +1,8 @@
 # Bash Style Guide
 
 A guide for writing Bash scripts that run on Linux, macOS and Windows.
-It is heavily based on the [Google Shell style guide](https://google.github.io/styleguide/shellguide.html).
-This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and the code samples it takes from that guide are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+It is heavily based on the [Google Shell style guide](https://google.github.io/styleguide/shellguide.html), which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+The code examples are our own.
 
 Deviations from the Google guide:
 
@@ -163,11 +163,11 @@ Use a function to print error messages with a timestamp:
 
 ```bash
 err() {
-    echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
+    echo "$(date +'%F %T') error: $*" >&2
 }
 
-if ! do_something; then
-    err "Unable to do_something"
+if ! load_config; then
+    err "Cannot read the configuration file"
     exit 1
 fi
 ```
@@ -241,12 +241,12 @@ Use a here document or an embedded newline for long strings.
 
 ```bash
 cat << EOF
-I am an exceptionally long
-string.
+This text is too long for
+a single line.
 EOF
 
-long_string="I am an exceptionally
-long string."
+long_text="This text is too long for
+a single line."
 ```
 
 Paths and URLs that are longer than 80 characters may stay on one line.
@@ -293,12 +293,12 @@ Put `; then` and `; do` on the same line as the `if`, `for` or `while`.
 `else` goes on its own line, and the closing `fi` or `done` is aligned with the opening statement.
 
 ```bash
-for dir in "${dirs_to_cleanup[@]}"; do
-    if [[ -d "${dir}/${SESSION_ID}" ]]; then
-        log_date "Cleaning up old files in ${dir}/${SESSION_ID}"
-        rm -r -- "${dir:?}/${SESSION_ID}" || error_message
+for dir in "${cache_dirs[@]}"; do
+    if [[ -d "${dir}/${BUILD_ID}" ]]; then
+        log_info "Removing stale files from ${dir}/${BUILD_ID}"
+        rm -r -- "${dir:?}/${BUILD_ID}" || fail
     else
-        mkdir -p "${dir}/${SESSION_ID}" || error_message
+        mkdir -p "${dir}/${BUILD_ID}" || fail
     fi
 done
 ```
@@ -319,17 +319,17 @@ done
 - Do not use the optional opening parenthesis before the pattern.
 
 ```bash
-case "${expression}" in
-    a)
-        variable="..."
-        some_command "${variable}" "${other_expr}"
+case "${mode}" in
+    fast)
+        threads="$(nproc)"
+        run_checks "${threads}" "${target}"
         ;;
-    absolute)
-        actions="relative"
-        another_command "${actions}" "${other_expr}"
+    thorough)
+        threads=1
+        run_checks "${threads}" "${target}" --deep
         ;;
     *)
-        error "Unexpected expression '${expression}'"
+        err "Unknown mode '${mode}'"
         ;;
 esac
 ```
@@ -337,13 +337,12 @@ esac
 Simple commands may go on the same line as the pattern.
 
 ```bash
-verbose='false'
-while getopts 'abf:v' flag; do
-    case "${flag}" in
-        a) aflag='true' ;;
-        b) bflag='true' ;;
-        f) files="${OPTARG}" ;;
-        v) verbose='true' ;;
+quiet='false'
+while getopts 'hn:q' option; do
+    case "${option}" in
+        h) show_help ;;
+        n) count="${OPTARG}" ;;
+        q) quiet='true' ;;
         *) usage ;;
     esac
 done
@@ -358,7 +357,7 @@ Do not use braces for single-character shell variables and positional parameters
 
 ```bash
 # Good:
-echo "PATH=${PATH}, PWD=${PWD}, mine=${some_var}"
+echo "HOME=${HOME}, SHELL=${SHELL}, user=${user_name}"
 echo "Positional: $1 $5 $3"
 echo "Ten arguments: ${10}"
 echo "Many parameters: $#"
@@ -382,9 +381,9 @@ echo "${1}0${2}0${3}0"
 # 'Single' quotes indicate that no substitution is wanted.
 # "Double" quotes indicate that substitution is wanted.
 
-flag="$(some_command and its args "$@" 'quoted separately')"
+message="$(format_line --width 40 "$@" 'last argument')"
 
-echo "${flag}"
+echo "${message}"
 
 number="$((2 + 2))"
 
@@ -392,7 +391,7 @@ if [[ "${number}" -gt 3 ]]; then
     echo 'Larger than three'
 fi
 
-grep -li Hugo /dev/null "$1"
+ls -l /tmp "$1"
 
 git send-email --to "${reviewers}" "${msg}"
 ```
@@ -412,10 +411,10 @@ Use `$(command)` instead of backticks.
 
 ```bash
 # Good:
-var="$(command "$(command1)")"
+dir_name="$(basename "$(pwd)")"
 
 # Bad:
-var="`command \`command1\``"
+dir_name="`basename \`pwd\``"
 ```
 
 ### Tests
@@ -442,17 +441,17 @@ Use `==` for string equality, not `=`.
 
 ```bash
 # Good:
-if [[ -z "${my_var}" ]]; then
-    do_something
+if [[ -z "${user_name}" ]]; then
+    usage
 fi
 
-if [[ "${my_var}" == "some_string" ]]; then
-    do_something
+if [[ "${environment}" == 'production' ]]; then
+    confirm_deploy
 fi
 
 # Bad:
-if [[ "${my_var}" == "" ]]; then
-    do_something
+if [[ "${user_name}" == '' ]]; then
+    usage
 fi
 ```
 
@@ -461,13 +460,13 @@ Never use `<` and `>` inside `[[ ... ]]` for numbers, as they compare strings.
 
 ```bash
 # Good:
-if ((my_var > 3)); then
-    do_something
+if ((retries > 3)); then
+    give_up
 fi
 
 # Bad: compares the strings, so 22 is less than 3.
-if [[ "${my_var}" > 3 ]]; then
-    do_something
+if [[ "${retries}" > 3 ]]; then
+    give_up
 fi
 ```
 
@@ -496,15 +495,15 @@ Do not store a list in a string and rely on word splitting.
 
 ```bash
 # Good:
-declare -a flags
-flags=(--foo --bar='baz')
-flags+=(--greeting="Hello ${name}")
-mybinary "${flags[@]}"
+declare -a options
+options=(--verbose --output='report.txt')
+options+=(--title="Report for ${user_name}")
+generate_report "${options[@]}"
 
 # Bad: breaks when an element contains a space.
-flags='--foo --bar=baz'
-flags+=" --greeting=\"Hello ${name}\""
-mybinary ${flags}
+options='--verbose --output=report.txt'
+options+=" --title=\"Report for ${user_name}\""
+generate_report ${options}
 ```
 
 Always expand arrays with `"${array[@]}"`, including the quotes.
@@ -515,32 +514,32 @@ Do not pipe into a `while` loop.
 The loop runs in a subshell, so variables set inside it are lost when it ends.
 
 ```bash
-# Bad: last_line is always 'NULL' after the loop.
-last_line='NULL'
-your_command | while read -r line; do
-    if [[ -n "${line}" ]]; then
-        last_line="${line}"
+# Bad: newest is always empty after the loop.
+newest=''
+list_files | while read -r file; do
+    if [[ "${file}" -nt "${newest:-/dev/null}" ]]; then
+        newest="${file}"
     fi
 done
-echo "${last_line}"
+echo "${newest}"
 ```
 
 Use process substitution or `readarray` instead.
 
 ```bash
 # Good:
-last_line='NULL'
-while read -r line; do
-    if [[ -n "${line}" ]]; then
-        last_line="${line}"
+newest=''
+while read -r file; do
+    if [[ "${file}" -nt "${newest:-/dev/null}" ]]; then
+        newest="${file}"
     fi
-done < <(your_command)
-echo "${last_line}"
+done < <(list_files)
+echo "${newest}"
 
 # Good: reads all lines into an array first.
-readarray -t lines < <(your_command)
-for line in "${lines[@]}"; do
-    process "${line}"
+readarray -t files < <(list_files)
+for file in "${files[@]}"; do
+    process "${file}"
 done
 ```
 
@@ -685,8 +684,8 @@ Variable names are lowercase, with underscores between words.
 Loop variables are named after what they loop over.
 
 ```bash
-for zone in "${zones[@]}"; do
-    something_with "${zone}"
+for host in "${hosts[@]}"; do
+    connect_to "${host}"
 done
 ```
 
@@ -696,23 +695,20 @@ Constants and exported environment variables are upper case, with underscores be
 
 ```bash
 # Constant.
-readonly PATH_TO_FILES='/some/path'
+readonly CONFIG_DIR='/etc/myapp'
 
 # Both constant and exported to the environment.
-declare -xr ORACLE_SID='PROD'
+declare -xr APP_ENV='production'
 ```
 
 Variables that are set once at runtime, such as from command line arguments, are made read-only as soon as they are set.
 
 ```bash
-ZIP_VERSION="$(dpkg --status zip | sed -n 's/^Version: //p')"
-if [[ -z "${ZIP_VERSION}" ]]; then
-    ZIP_VERSION="$(pacman -Q --info zip | sed -n 's/^Version *: //p')"
+LOG_LEVEL="${APP_LOG_LEVEL:-}"
+if [[ -z "${LOG_LEVEL}" ]]; then
+    LOG_LEVEL='info'
 fi
-if [[ -z "${ZIP_VERSION}" ]]; then
-    handle_error_and_quit
-fi
-readonly ZIP_VERSION
+readonly LOG_LEVEL
 ```
 
 ### Local variables
@@ -726,7 +722,7 @@ When the value comes from a command substitution, declare and assign the variabl
 my_func2() {
     local name="$1"
 
-    # Separate lines for declaration and assignment:
+    # Declare and assign in separate statements:
     local my_var
     my_var="$(my_func)" || return
 
@@ -748,8 +744,8 @@ Do not put executable code between functions, as it makes the code hard to follo
 Always check the return value of a command whose failure matters, and give a useful error message.
 
 ```bash
-if ! mv "${file_list[@]}" "${dest_dir}/"; then
-    err "Unable to move ${file_list[*]} to ${dest_dir}"
+if ! cp -- "${source_files[@]}" "${backup_dir}/"; then
+    err "Cannot copy ${source_files[*]} to ${backup_dir}"
     exit 1
 fi
 ```
@@ -874,7 +870,7 @@ verbose='false'
 # Arguments:
 #   The message to print.
 err() {
-    echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
+    echo "$(date +'%F %T') error: $*" >&2
 }
 
 # Count the lines in a single file.
