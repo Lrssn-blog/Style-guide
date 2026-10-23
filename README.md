@@ -91,3 +91,16 @@ The guides are mirrored to the [GitHub wiki](https://github.com/Lrssn-blog/Style
 Do not edit the wiki directly, since the next sync overwrites it.
 Edit the Markdown files in this repository instead.
 The sync is done by [`scripts/sync-wiki.sh`](./scripts/sync-wiki.sh) in the `Wiki` workflow.
+
+## License
+
+Copyright (C) 2025 Lrssn-blog.
+
+The guides and the other files in this repository are licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](./LICENSE) (CC BY-SA 4.0), with these exceptions:
+
+- The code blocks in the guides and the ready to copy files in `src/`, which are the config files and `AGENTS.template.md`, are dedicated to the public domain under [CC0 1.0](./LICENSE-CC0).
+  You can copy them into a project without credit or conditions.
+- The scripts in `scripts/` are free software: you can redistribute them and modify them under the terms of the [GNU Affero General Public License](./LICENSE-CODE), either version 3 of the License or (at your option) any later version.
+- `CODE_OF_CONDUCT.md` is adapted from the Contributor Covenant and keeps its license.
+- Text and code taken from another style guide keep the license of that guide.
+  A guide that is based on another one credits it at the top.
