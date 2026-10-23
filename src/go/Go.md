@@ -2,7 +2,8 @@
 
 A style guide for the Go language.
 It is heavily based on the [Google Go style guide](https://google.github.io/styleguide/go/), [Effective Go](https://go.dev/doc/effective_go) and the [Go code review comments](https://go.dev/wiki/CodeReviewComments).
-This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and the code samples it takes from that guide are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+The Google guide is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+The code examples are our own.
 
 Deviations from the house rules:
 
@@ -231,16 +232,16 @@ Move parts of a long condition into well-named local variables instead.
 
 ```go
 // Good:
-inTransaction := db.CurrentStatus() == db.InTransaction
-keysMatch := db.ValuesEqual(db.TransactionKey(), row.Key())
-if inTransaction && keysMatch {
-    return db.Error(db.TransactionError, "key mismatch")
+isOwner := order.Customer() == session.User()
+isOpen := order.Status() == orders.Open
+if isOwner && isOpen {
+    return orders.Cancel(order)
 }
 
 // Bad:
-if db.CurrentStatus() == db.InTransaction &&
-    db.ValuesEqual(db.TransactionKey(), row.Key()) {
-    return db.Error(db.TransactionError, "key mismatch")
+if order.Customer() == session.User() &&
+    order.Status() == orders.Open {
+    return orders.Cancel(order)
 }
 ```
 
@@ -251,13 +252,13 @@ Positional fields break when the type gets a new field.
 
 ```go
 // Good:
-r := csv.Reader{
-    Comma:   ',',
-    Comment: '#',
+cfg := server.Config{
+    Port:    8080,
+    Timeout: 30 * time.Second,
 }
 
 // Bad:
-r := csv.Reader{',', '#', 4, false, false, false, false}
+cfg := server.Config{8080, 30 * time.Second, false, false, 0}
 ```
 
 Multi-line composite literals have a trailing comma after the last element, and the closing brace on its own line at the indentation of the opening line.
@@ -294,11 +295,11 @@ Do not use `ALL_CAPS` or a `k` prefix.
 
 ```go
 // Good:
-const MaxPacketSize = 512
+const MaxBodySize = 1 << 20
 
 // Bad:
-const MAX_PACKET_SIZE = 512
-const kMaxPacketSize = 512
+const MAX_BODY_SIZE = 1 << 20
+const kMaxBodySize = 1 << 20
 ```
 
 Underscores are only allowed in test function names, generated code and names that interact with the operating system or cgo.
@@ -566,10 +567,10 @@ Return an additional `error` or `bool` instead.
 
 ```go
 // Good:
-func Lookup(key string) (value string, ok bool)
+func Find(name string) (user User, ok bool)
 
-// Bad: the caller cannot tell an empty value from a missing one.
-func Lookup(key string) string
+// Bad: the caller cannot tell a zero User from a missing one.
+func Find(name string) User
 ```
 
 #### Handling errors
@@ -608,10 +609,10 @@ Error strings start with a lowercase letter and do not end with punctuation, sin
 
 ```go
 // Good:
-err := fmt.Errorf("something bad happened")
+err := fmt.Errorf("cannot open the file")
 
 // Bad:
-err := fmt.Errorf("Something bad happened.")
+err := fmt.Errorf("Cannot open the file.")
 ```
 
 #### Adding context
