@@ -1,6 +1,7 @@
 # Javascript Style Guide
 
 A basic javascript style guide, heavily based on the [Google styleguide](https://google.github.io/styleguide/jsguide.html).
+This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and the code samples it takes from that guide are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 ## Table of contents
 

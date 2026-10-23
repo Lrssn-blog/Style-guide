@@ -1,6 +1,7 @@
 # C++ Style Guide
 
 A style guide for C++, heavily based on the [Google C++ style guide](https://google.github.io/styleguide/cppguide.html).
+This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and the code samples it takes from that guide are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 Deviations from the Google guide:
 
