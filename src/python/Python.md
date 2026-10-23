@@ -7,7 +7,7 @@ This guide is a changed version of the Google guide, which is licensed under [CC
 Deviations from the Google guide:
 
 - Code is formatted with the [Ruff](https://docs.astral.sh/ruff/) formatter, which follows the Black code style, and linted with Ruff instead of Pylint.
-- Strings use single quotes, as in the [Javascript](../javascript/Javascript.md#string-literals) and [TypeScript](../typescript/Typescript.md) guides.
+- Strings use single quotes, as in the [JavaScript](../javascript/Javascript.md#string-literals) and [TypeScript](../typescript/Typescript.md) guides.
   Docstrings use triple double quotes.
 - All public functions and methods have type annotations.
 
@@ -205,7 +205,7 @@ if width == 0 and height == 0 and color == 'red' and \
 ```
 
 When an expression is split over several lines, the formatter breaks before binary operators such as `and` and `+`, as PEP 8 recommends.
-This is different from the Javascript and TypeScript guides, which break after operators.
+This is different from the JavaScript and TypeScript guides, which break after operators.
 
 When a literal string does not fit on a line, use parentheses for implicit concatenation.
 
