@@ -1,7 +1,7 @@
 # LaTeX Style Guide
 
 A style guide and theme for writing documents and packages in LaTeX.
-It collects common LaTeX conventions, including the list of obsolete commands from [l2tabu](https://ctan.org/pkg/l2tabuen), and defines the Lrssn theme with the colors from the [color palette](../colors/Colors.md).
+It collects common LaTeX conventions, including the list of obsolete commands from [l2tabu](https://ctan.org/pkg/l2tabuen), and describes the Lrssn theme, which brings the colors of the [color palette](../colors/Colors.md) to LaTeX.
 
 The house rules apply to LaTeX files as well: files use UTF-8 and LF line endings, environments are indented by 4 spaces, and prose is written one sentence per line, as in the [Markdown style guide](../markdown/Markdown.md#one-sentence-per-line).
 
@@ -84,6 +84,7 @@ report/
 - References are in `references.bib`.
 
 Shared packages, such as the Lrssn theme, are kept in their own repository and installed in the local TeX tree, rather than copied into every project.
+The Lrssn theme lives in the [ColorTheme](https://github.com/Lrssn-blog/ColorTheme) repository.
 
 ### File names
 
@@ -221,7 +222,7 @@ Load the packages in the preamble in this order:
 \usepackage{subcaption}
 
 % The Lrssn theme.
-\usepackage{lrssn}
+\usepackage[shore]{lrssntheme}
 
 % Bibliography.
 \usepackage[backend=biber, style=authoryear]{biblatex}
@@ -235,9 +236,9 @@ Load the packages in the preamble in this order:
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=LrssnBlue,
-    citecolor=LrssnBlue,
-    urlcolor=LrssnOrange,
+    linkcolor=LrssnInfo,
+    citecolor=LrssnInfo,
+    urlcolor=LrssnPrimaryText,
 }
 \usepackage[capitalise, nameinlink, noabbrev]{cleveref}
 ```
@@ -304,14 +305,14 @@ The velocity $\mathbf{v}$ is constant.
 ```latex
 \NewDocumentCommand{\todo}{o m}{%
     \IfValueTF{#1}%
-    {\textcolor{LrssnRed}{[#1: #2]}}%
-    {\textcolor{LrssnRed}{[#2]}}%
+    {\textcolor{LrssnError}{[#1: #2]}}%
+    {\textcolor{LrssnError}{[#2]}}%
 }
 ```
 
 ### Macro names
 
-Macro names consist of letters only, as LaTeX does not allow digits or punctuation in command names. Use lowercase names for the macros you define; the theme's color names, such as `LrssnOrange`, are the exception.
+Macro names consist of letters only, as LaTeX does not allow digits or punctuation in command names. Use lowercase names for the macros you define; the theme's color names, such as `LrssnPrimaryText`, are the exception.
 Choose descriptive names that do not clash with existing commands.
 
 ### Spaces after macros
@@ -529,7 +530,7 @@ Use the `subfigure` environment from the `subcaption` package for figures with s
 ### Code listings
 
 Use the `listings` package for source code.
-The Lrssn theme defines a style for it.
+The Lrssn theme defines a style for it, `lrssntheme`, and makes it the default.
 Avoid `minted`, which needs to run external programs during the build with `-shell-escape`.
 
 ```latex
@@ -606,97 +607,79 @@ Choose a citation style that fits the field, such as `authoryear`, `numeric` or 
 
 ## The Lrssn theme
 
-### Colors
+The Lrssn theme is the package `lrssntheme`, from the [ColorTheme](https://github.com/Lrssn-blog/ColorTheme) repository.
+It brings the colors of the [color palette](../colors/Colors.md) to LaTeX, in two themes: Lrssn Shore, which is light, and Lrssn Hearth, which is dark.
+ColorTheme generates the package from its palettes, so do not copy it into a project or edit it by hand.
 
-The theme defines the colors from the [color palette](../colors/Colors.md) for use with `xcolor`.
+### Installing the theme
 
-| Name | HEX | Use |
-| --- | --- | --- |
-| `LrssnOrange` | `#D96C36` | Primary color, for accents and URLs |
-| `LrssnTurquoise` | `#36D9CB` | Secondary color |
-| `LrssnBlack` | `#000000` | Text |
-| `LrssnDarkGrey` | `#242A33` | Headings and dark backgrounds |
-| `LrssnGrey` | `#525A66` | Secondary text, such as captions and comments |
-| `LrssnLightGrey` | `#DAE4F2` | Rules and light backgrounds |
-| `LrssnWhite` | `#FFFFFF` | Text on dark backgrounds |
-| `LrssnGreen` | `#36D951` | Success |
-| `LrssnYellow` | `#D9D936` | Warnings |
-| `LrssnRed` | `#D93636` | Errors and danger |
-| `LrssnBlue` | `#366CD9` | Neutral information and internal links |
-
-```latex
-\textcolor{LrssnOrange}{Important}
-\colorbox{LrssnLightGrey}{Highlighted text}
-```
-
-Use the colors for the same purpose in every document, as listed in the table.
-Never use color as the only way to convey information, as some readers cannot see it.
+Copy `latex/lrssntheme.sty` from ColorTheme to the local TeX tree, for example `~/texmf/tex/latex/lrssntheme/`.
 
 ### Using the theme
 
-Load the theme with `\usepackage{lrssn}` after the other packages and before `hyperref`, and set the link colors as shown in [Preamble](#preamble).
+Load the theme after the other packages and before `hyperref`, and set the link colors as shown in [Preamble](#preamble).
+Choose the theme with an option:
+
+| Option | Use |
+| --- | --- |
+| `shore` | The default: Shore's colors on a white page, for print. |
+| `hearth` | Hearth's colors on a dark page, for PDFs read on a screen. |
+| `nolistings` | Leaves out the style for `listings`. |
+
+```latex
+\usepackage[hearth]{lrssntheme}
+```
 
 For presentations, set the Beamer colors from the theme:
 
 ```latex
 \documentclass{beamer}
-\usepackage{lrssn}
+\usepackage[shore]{lrssntheme}
 
-\setbeamercolor{structure}{fg=LrssnOrange}
-\setbeamercolor{normal text}{fg=LrssnDarkGrey, bg=LrssnWhite}
-\setbeamercolor{alerted text}{fg=LrssnRed}
+\setbeamercolor{structure}{fg=LrssnPrimaryText}
+\setbeamercolor{normal text}{fg=LrssnText, bg=LrssnBackground}
+\setbeamercolor{alerted text}{fg=LrssnError}
 ```
 
-### The theme package
+### Colors
 
-The theme is the package `lrssn.sty`:
+The theme defines semantic color names for use with `xcolor`.
+Each name takes its value from the theme chosen with the option, so a document looks right in both.
+
+| Name | Shore | Hearth | Use |
+| --- | --- | --- | --- |
+| `LrssnBackground` | `#fdf6ea` | `#1a1512` | The page. |
+| `LrssnSurface` | `#f5ead7` | `#15110f` | Boxes and panels. |
+| `LrssnCode` | `#f8eedd` | `#211a16` | Behind code. |
+| `LrssnRule` | `#e3d3b9` | `#2e343c` | Rules and frames. |
+| `LrssnText` | `#13303d` | `#f0e3d0` | Text. |
+| `LrssnMuted` | `#4f6470` | `#a3aebb` | Secondary text, such as captions. |
+| `LrssnComment` | `#76664e` | `#8796aa` | Comments and line numbers in code. |
+| `LrssnPrimary` | `#fc6600` | `#fc6600` | The brand orange: fills and rules, never text. |
+| `LrssnPrimaryText` | `#b04600` | `#ff8a3d` | Orange text and links. |
+| `LrssnPrimarySoft` | `#ffe3cc` | `#3a1f0e` | A tint behind highlighted text. |
+| `LrssnOnPrimary` | `#14171c` | `#14171c` | Text on an orange fill. |
+| `LrssnSecondary` | `#00999a` | `#4d94b8` | The cool accent: fills and rules, never text. |
+| `LrssnSecondaryText` | `#00737a` | `#8cc8e3` | Text in the cool accent. |
+| `LrssnSecondarySoft` | `#d2f1ee` | `#142430` | A tint behind secondary text. |
+| `LrssnKeyword` | `#b04600` | `#fc6600` | Keywords in code. |
+| `LrssnFunction` | `#00629c` | `#ffb547` | Functions in code. |
+| `LrssnString` | `#00756a` | `#a9d48f` | Strings in code. |
+| `LrssnNumber` | `#c2215a` | `#ff88c8` | Numbers and constants in code. |
+| `LrssnType` | `#3550b0` | `#7fcbe6` | Types in code. |
+| `LrssnBuiltin` | `#8a3fbf` | `#c4a5ff` | Built-ins in code. |
+| `LrssnError` | `#c4262e` | `#ff6b5e` | Errors and danger. |
+| `LrssnWarning` | `#965a00` | `#ffb547` | Warnings. |
+| `LrssnSuccess` | `#1c7448` | `#a9d48f` | Success. |
+| `LrssnInfo` | `#00629c` | `#7fcbe6` | Neutral information. |
 
 ```latex
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{lrssn}[2026-10-12 v1.0.0 Lrssn colors and theme]
-
-% Options.
-\newif\iflrssn@listings
-\lrssn@listingstrue
-\DeclareOption{nolistings}{\lrssn@listingsfalse}
-\ProcessOptions\relax
-
-% Dependencies.
-\RequirePackage{xcolor}
-
-% Colors from Colors.md.
-\definecolor{LrssnOrange}{HTML}{D96C36}
-\definecolor{LrssnTurquoise}{HTML}{36D9CB}
-\definecolor{LrssnBlack}{HTML}{000000}
-\definecolor{LrssnDarkGrey}{HTML}{242A33}
-\definecolor{LrssnGrey}{HTML}{525A66}
-\definecolor{LrssnLightGrey}{HTML}{DAE4F2}
-\definecolor{LrssnWhite}{HTML}{FFFFFF}
-\definecolor{LrssnGreen}{HTML}{36D951}
-\definecolor{LrssnYellow}{HTML}{D9D936}
-\definecolor{LrssnRed}{HTML}{D93636}
-\definecolor{LrssnBlue}{HTML}{366CD9}
-
-% Code listings.
-\iflrssn@listings
-    \RequirePackage{listings}
-    \lstdefinestyle{lrssn}{
-        basicstyle=\ttfamily\small,
-        keywordstyle=\color{LrssnBlue}\bfseries,
-        commentstyle=\color{LrssnGrey}\itshape,
-        stringstyle=\color{LrssnOrange},
-        numbers=left,
-        numberstyle=\tiny\color{LrssnGrey},
-        frame=single,
-        rulecolor=\color{LrssnLightGrey},
-        breaklines=true,
-        tabsize=4,
-    }
-    \lstset{style=lrssn}
-\fi
-
-\endinput
+\textcolor{LrssnPrimaryText}{Important}
+\colorbox{LrssnPrimarySoft}{Highlighted text}
 ```
+
+Use the colors for the same purpose in every document, as listed in the table.
+Never use color as the only way to convey information, as some readers cannot see it.
 
 ## Writing packages and classes
 
@@ -714,7 +697,7 @@ The version follows [Semantic Versioning](../git/Git.md#versioning), and matches
 
 ```latex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{lrssn}[2026-10-12 v1.0.0 Lrssn colors and theme]
+\ProvidesPackage{lrssntheme}[2026-10-23 v1.0.0 Lrssn Shore and Hearth colours]
 ```
 
 ### Loading other packages
@@ -724,7 +707,7 @@ Pass options to packages that the user may also load with `\PassOptionsToPackage
 
 ### Internal names
 
-Internal macros contain an `@`, which cannot be used in documents, and start with the package name: `\lrssn@listingstrue`.
+Internal macros contain an `@`, which cannot be used in documents, and start with the package name: `\lrssntheme@listingstrue`.
 Public macros and environments use names that are unlikely to clash with other packages, prefixed with the package name where they are generic.
 
 ### Options
@@ -735,7 +718,7 @@ Store the state of an option in a switch created with `\newif`.
 ### expl3
 
 Larger packages may be written in the LaTeX3 programming layer, `expl3`.
-Use the package name as the module prefix for all functions and variables, such as `\lrssn_set_color:n` and `\l_lrssn_color_tl`.
+Use the package name as the module prefix for all functions and variables, such as `\lrssntheme_set_color:n` and `\l_lrssntheme_color_tl`.
 
 ### End of file
 
@@ -784,3 +767,4 @@ latexindent --local=.latexindent.yaml --overwrite main.tex
 - [KOMA-Script](https://ctan.org/pkg/koma-script)
 - [biblatex](https://ctan.org/pkg/biblatex)
 - [Color palette](../colors/Colors.md)
+- [ColorTheme](https://github.com/Lrssn-blog/ColorTheme)
