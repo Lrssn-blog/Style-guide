@@ -514,9 +514,9 @@ Link to files in the same repository with relative paths.
 Absolute links to GitHub point at the original repository, so they are wrong in forks, and they do not work in a local clone.
 
 ```markdown
-Good: [Javascript style guide](../javascript/Javascript.md)
+Good: [JavaScript style guide](../javascript/Javascript.md)
 
-Bad: [Javascript style guide](https://github.com/Lrssn-blog/Style-guide/blob/main/Javascript.md)
+Bad: [JavaScript style guide](https://github.com/Lrssn-blog/Style-guide/blob/main/Javascript.md)
 ```
 
 Link to a section in the same document by its anchor.

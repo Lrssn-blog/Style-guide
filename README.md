@@ -8,7 +8,7 @@ A guide for how to create, structure and maintain git repos. This also covers Gi
 
 ## [JavaScript](./src/javascript/Javascript.md)
 
-A style guide for JavaScript. Heavily based on the [Google styleguide](https://google.github.io/styleguide/jsguide.html).
+A style guide for JavaScript. Based on the [Google styleguide](https://google.github.io/styleguide/jsguide.html).
 
 ## [TypeScript](./src/typescript/Typescript.md)
 

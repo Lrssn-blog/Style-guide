@@ -9,7 +9,7 @@ Deviations from the Google guide:
   Access specifiers are indented by 2 spaces.
 - Exceptions are allowed for errors that the caller cannot handle locally.
   See [Exceptions](#exceptions).
-- Braces are required for all control structures, even when the body is a single statement, as in the [Javascript style guide](../javascript/Javascript.md#braces).
+- Braces are required for all control structures, even when the body is a single statement, as in the [JavaScript style guide](../javascript/Javascript.md#braces).
 - Function bodies never share a line with the signature, except when they are empty.
 
 ## Table of contents
