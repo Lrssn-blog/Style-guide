@@ -1,8 +1,8 @@
 # TypeScript Style Guide
 
 A style guide for TypeScript, heavily based on the [Google TypeScript style guide](https://google.github.io/styleguide/tsguide.html).
-TypeScript is a superset of JavaScript, so everything in the [Javascript style guide](../javascript/Javascript.md) applies unless this guide says otherwise.
-This guide covers what is specific to TypeScript.
+This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and the code samples it takes from that guide are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+TypeScript is a superset of JavaScript, so this guide covers what is specific to TypeScript, and everything in the [Javascript style guide](../javascript/Javascript.md) applies unless this guide says otherwise.
 
 Deviations from the Google guide:
 

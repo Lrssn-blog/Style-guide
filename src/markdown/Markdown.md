@@ -2,6 +2,7 @@
 
 A style guide for writing Markdown documents such as READMEs, changelogs and the style guides in this repository.
 It is heavily based on the [Google Markdown style guide](https://google.github.io/styleguide/docguide/style.html) and the rules of [markdownlint](https://github.com/DavidAnson/markdownlint).
+This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 
 Deviations from the Google guide:
 
