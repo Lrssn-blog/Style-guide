@@ -4,7 +4,7 @@ The Lrssn colors come in two themes: **Lrssn Shore**, which is light, and **Lrss
 Both are built around the brand orange `#fc6600`.
 
 - Shore is a summer evening on a beach, with a bonfire, clear tropical water and coral.
-- Hearth is a cottage on New Year's Eve, warm by the fire while fireworks go off in the cold outside.
+- Hearth is a cottage on New Year's Eve, warm by the fire while fireworks go off over the forest in the cold outside.
 
 The colors are defined once, in the [Color-theme](https://github.com/Lrssn-blog/Color-theme) repository.
 It generates the themes for editors, terminals, the desktop, the website and LaTeX from them.
@@ -16,8 +16,8 @@ The roles are the names in Color-theme's palettes.
 
 | Role | Shore | Hearth | Use |
 | --- | --- | --- | --- |
-| `bg` | `#fdf6ea` | `#1a1512` | The page, the editor and the terminal. |
-| `bg-dim` | `#f5ead7` | `#15110f` | Sidebars, panels and boxes. |
+| `bg` | `#fdf6ea` | `#101a16` | The page, the editor and the terminal. |
+| `bg-dim` | `#f5ead7` | `#0c1411` | Sidebars, panels and boxes. |
 | `border` | `#e3d3b9` | `#2e343c` | Borders and rules. |
 | `fg` | `#13303d` | `#f0e3d0` | Text. |
 | `fg-muted` | `#4f6470` | `#a3aebb` | Secondary text, such as captions. |

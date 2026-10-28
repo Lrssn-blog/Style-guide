@@ -648,9 +648,9 @@ Each name takes its value from the theme chosen with the option, so a document l
 
 | Name | Shore | Hearth | Use |
 | --- | --- | --- | --- |
-| `LrssnBackground` | `#fdf6ea` | `#1a1512` | The page. |
-| `LrssnSurface` | `#f5ead7` | `#15110f` | Boxes and panels. |
-| `LrssnCode` | `#f8eedd` | `#211a16` | Behind code. |
+| `LrssnBackground` | `#fdf6ea` | `#101a16` | The page. |
+| `LrssnSurface` | `#f5ead7` | `#0c1411` | Boxes and panels. |
+| `LrssnCode` | `#f8eedd` | `#15211c` | Behind code. |
 | `LrssnRule` | `#e3d3b9` | `#2e343c` | Rules and frames. |
 | `LrssnText` | `#13303d` | `#f0e3d0` | Text. |
 | `LrssnMuted` | `#4f6470` | `#a3aebb` | Secondary text, such as captions. |
