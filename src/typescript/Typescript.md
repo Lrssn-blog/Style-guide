@@ -76,10 +76,10 @@ There are four variants of import statements in ES6 and TypeScript:
 
 ```typescript
 import 'jasmine';
-import '@polymer/paper-button';
+import 'reflect-metadata';
 
-import * as ng from '@angular/core';
-import Button from 'Button';
+import * as rx from 'rxjs';
+import Chart from 'chart.js';
 
 import {Foo} from './foo.js';
 ```
@@ -119,9 +119,9 @@ let model: tableView.Model;
 // Bad: the module name adds nothing.
 import * as testing from 'vitest';
 
-testing.describe('foo', () => {
-    testing.it('bar', () => {
-        testing.expect(1).toBe(1);
+testing.describe('parser', () => {
+    testing.it('reads a number', () => {
+        testing.expect(parse('7')).toBe(7);
     });
 });
 ```
@@ -476,7 +476,7 @@ Array destructuring is allowed, and elements that are not needed can be left out
 Default values go on the left-hand side.
 
 ```typescript
-const [a, b, c, ...rest] = generateResults();
+const [first, second, third, ...others] = loadResults();
 let [, b2, , d] = someArray;
 
 function destructured([a = 4, b = 2] = []): void {
@@ -568,15 +568,15 @@ Use parameter properties instead of declaring a property and assigning it from a
 ```typescript
 // Good:
 class Foo {
-    constructor(private readonly barService: BarService) {}
+    constructor(private readonly mailer: Mailer) {}
 }
 
 // Bad:
 class Foo {
-    private readonly barService: BarService;
+    private readonly mailer: Mailer;
 
-    constructor(barService: BarService) {
-        this.barService = barService;
+    constructor(mailer: Mailer) {
+        this.mailer = mailer;
     }
 }
 ```
@@ -588,15 +588,15 @@ Initialize properties where they are declared when possible, instead of in the c
 ```typescript
 // Good:
 class Foo {
-    private readonly userList: string[] = [];
+    private readonly names: string[] = [];
 }
 
 // Bad:
 class Foo {
-    private readonly userList: string[];
+    private readonly names: string[];
 
     constructor() {
-        this.userList = [];
+        this.names = [];
     }
 }
 ```
@@ -627,15 +627,15 @@ Getters and setters may be used, but a getter must not change observable state.
 At least one of a getter and setter pair must do more than read or write a backing property, otherwise use a public property.
 
 ```typescript
-class Foo {
-    private wrappedBar = '';
+class Label {
+    private storedText = '';
 
-    get bar(): string {
-        return this.wrappedBar || 'bar';
+    get text(): string {
+        return this.storedText || 'untitled';
     }
 
-    set bar(value: string) {
-        this.wrappedBar = value.trim();
+    set text(value: string) {
+        this.storedText = value.trim();
     }
 }
 ```
@@ -807,17 +807,17 @@ Use `String()` and `Boolean()` (or `!!`) to convert values.
 Do not use string concatenation or the unary `+` operator to convert values.
 
 ```typescript
-const bool = Boolean(false);
-const str = String(aNumber);
-const bool2 = !!str;
-const str2 = `result: ${bool2}`;
+const flag = Boolean(0);
+const text = String(count);
+const flag2 = !!text;
+const message = `result: ${flag2}`;
 ```
 
 Use `Number()` to parse numbers, and check the result for `NaN` unless failing to parse is impossible from context.
 
 ```typescript
-const aNumber = Number('123');
-if (!isFinite(aNumber)) {
+const parsed = Number('42');
+if (!isFinite(parsed)) {
     throw new Error('Expected a number');
 }
 ```
@@ -903,11 +903,11 @@ Empty `catch` blocks are only allowed with a comment that explains why the error
 
 ```typescript
 try {
-    return handleNumericResponse(response);
+    return parseAsNumber(response);
 } catch (e: unknown) {
-    // Response is not numeric. Continue to handle as text.
+    // Not a number. Fall back to treating it as text.
 }
-return handleTextResponse(response);
+return parseAsText(response);
 ```
 
 #### Switch statements
@@ -1077,12 +1077,12 @@ Add them where the alias is used, so the reader can see that the value may be mi
 
 ```typescript
 // Bad:
-type CoffeeResponse = Latte|Americano|undefined;
+type SearchResult = Book|Article|undefined;
 
 // Good:
-type CoffeeResponse = Latte|Americano;
+type SearchResult = Book|Article;
 
-function getCoffee(): CoffeeResponse|undefined {
+function findResult(): SearchResult|undefined {
     // …
 }
 ```
@@ -1093,9 +1093,9 @@ Prefer optional parameters and properties (`?`) over `|undefined`.
 
 ```typescript
 // Good:
-interface CoffeeOrder {
-    sugarCubes: number;
-    milk?: Whole|LowFat|HalfHalf;
+interface PizzaOrder {
+    slices: number;
+    cheese?: Mozzarella|Cheddar|Vegan;
 }
 
 function pourCoffee(volume?: Milliliter): void {
@@ -1219,12 +1219,12 @@ Use tuple types instead of interfaces for small pairs of values where the meanin
 Use an interface with named properties when the meaning of the elements is not obvious.
 
 ```typescript
-function splitInHalf(input: string): [string, string] {
-    const middle = Math.floor(input.length / 2);
-    return [input.slice(0, middle), input.slice(middle)];
+function splitAtColon(input: string): [string, string] {
+    const index = input.indexOf(':');
+    return [input.slice(0, index), input.slice(index + 1)];
 }
 
-const [leftHalf, rightHalf] = splitInHalf('my string');
+const [key, value] = splitAtColon('theme:dark');
 ```
 
 ### Generics
@@ -1310,12 +1310,12 @@ Document parameter properties with `@param` on the constructor.
 ```typescript
 class ParamProps {
     /**
-     * @param percolator The percolator used for brewing.
-     * @param beans The beans to brew.
+     * @param logger The logger that records every request.
+     * @param retries The number of attempts for each request.
      */
     constructor(
-            private readonly percolator: Percolator,
-            private readonly beans: CoffeeBean[]) {}
+            private readonly logger: Logger,
+            private readonly retries: number) {}
 }
 ```
 
@@ -1336,7 +1336,7 @@ class UserCard {
 Use parameter name comments when the meaning of an argument is not clear from the call, as described in the [JavaScript style guide](../javascript/Javascript.md#parameter-name-comments).
 
 ```typescript
-someFunction(obviousParam, /* shouldRender= */ true, /* name= */ 'hello');
+connect(host, /* secure= */ true, /* retries= */ 3);
 ```
 
 ### TODO comments
