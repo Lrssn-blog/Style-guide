@@ -1,7 +1,7 @@
 # C++ Style Guide
 
-A style guide for C++, heavily based on the [Google C++ style guide](https://google.github.io/styleguide/cppguide.html).
-This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and the code samples it takes from that guide are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+A style guide for C++, heavily based on the [Google C++ style guide](https://google.github.io/styleguide/cppguide.html), which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+The code examples are our own.
 
 Deviations from the Google guide:
 
@@ -9,7 +9,7 @@ Deviations from the Google guide:
   Access specifiers are indented by 2 spaces.
 - Exceptions are allowed for errors that the caller cannot handle locally.
   See [Exceptions](#exceptions).
-- Braces are required for all control structures, even when the body is a single statement, as in the [Javascript style guide](../javascript/Javascript.md#braces).
+- Braces are required for all control structures, even when the body is a single statement, as in the [JavaScript style guide](../javascript/Javascript.md#braces).
 - Function bodies never share a line with the signature, except when they are empty.
 
 ## Table of contents
@@ -286,22 +286,22 @@ Constructors that take a single `std::initializer_list` may be implicit, to allo
 Make it clear whether a class is copyable, move-only or neither, by declaring or deleting the copy and move operations in the public section.
 
 ```cpp
-class Copyable {
+class Point {
   public:
-    Copyable(const Copyable& other) = default;
-    Copyable& operator=(const Copyable& other) = default;
+    Point(const Point&) = default;
+    Point& operator=(const Point&) = default;
 };
 
-class MoveOnly {
+class FileHandle {
   public:
-    MoveOnly(MoveOnly&& other) = default;
-    MoveOnly& operator=(MoveOnly&& other) = default;
+    FileHandle(FileHandle&&) = default;
+    FileHandle& operator=(FileHandle&&) = default;
 };
 
-class NotCopyableOrMovable {
+class Mutex {
   public:
-    NotCopyableOrMovable(const NotCopyableOrMovable&) = delete;
-    NotCopyableOrMovable& operator=(const NotCopyableOrMovable&) = delete;
+    Mutex(const Mutex&) = delete;
+    Mutex& operator=(const Mutex&) = delete;
 };
 ```
 
@@ -340,7 +340,7 @@ class Shape {
     virtual double Area() const = 0;
 };
 
-class Circle : public Shape {
+class Circle final : public Shape {
   public:
     explicit Circle(double radius) : radius_(radius) {}
 
@@ -730,10 +730,10 @@ Type names use `PascalCase`.
 This applies to classes, structs, type aliases, enums, type template parameters and concepts.
 
 ```cpp
-class UrlTable {};
-struct UrlTableProperties {};
-using PropertiesMap = std::map<std::string, UrlTableProperties>;
-enum class UrlTableError {};
+class HostTable {};
+struct HostInfo {};
+using PropertiesMap = std::map<std::string, HostInfo>;
+enum class HostError {};
 ```
 
 ### Variable names
@@ -750,9 +750,9 @@ class TableInfo {
     static int pool_size_;
 };
 
-struct UrlTableProperties {
-    std::string name;
-    int num_entries;
+struct HostInfo {
+    std::string host;
+    int port;
 };
 ```
 
@@ -762,7 +762,7 @@ Variables declared `constexpr` whose value is fixed for the duration of the prog
 
 ```cpp
 constexpr int kDaysInAWeek = 7;
-const int kAndroid8_0_0 = 24;  // Android 8.0.0
+const int kSchema2_1_0 = 21;  // Schema 2.1.0
 ```
 
 ### Function names
@@ -797,7 +797,7 @@ The top-level namespace is based on the name of the project.
 Use scoped enums (`enum class`), and name the enumerators like constants.
 
 ```cpp
-enum class UrlTableError {
+enum class HostError {
     kOk = 0,
     kOutOfMemory,
     kMalformedInput,
@@ -840,14 +840,14 @@ Every non-obvious class or struct has a comment that describes what it is for an
 Mention any thread safety guarantees or limitations.
 
 ```cpp
-// Iterates over the contents of a GargantuanTable.
+// Reads the records of a LogFile one at a time.
 // Example:
-//     std::unique_ptr<GargantuanTableIterator> iter = table->NewIterator();
-//     for (iter->Seek("foo"); !iter->done(); iter->Next()) {
-//         process(iter->key(), iter->value());
+//     std::unique_ptr<LogReader> reader = file->NewReader();
+//     for (reader->Seek("2024-01"); !reader->done(); reader->Next()) {
+//         Print(reader->timestamp(), reader->message());
 //     }
 // This class is not thread-safe.
-class GargantuanTableIterator {
+class LogReader {
     // …
 };
 ```
@@ -866,10 +866,10 @@ Mention:
 - Any performance implications.
 
 ```cpp
-// Returns an iterator for this table, positioned at the first entry
-// lexically greater than or equal to `start_word`. The client must not use
-// the iterator after the table has been destroyed.
-std::unique_ptr<Iterator> GetIterator(std::string_view start_word) const;
+// Returns a reader for this file that starts at the first record whose key is
+// not less than `start_key`. The caller must not use the reader after the
+// file has been closed.
+std::unique_ptr<LogReader> GetReader(std::string_view start_key) const;
 ```
 
 Comments on a function definition explain how the function works, if that is not obvious.
@@ -939,13 +939,14 @@ Put the return type on the same line as the function name, and the parameters on
 If they do not fit, break after the opening parenthesis and indent the parameters by 8 spaces.
 
 ```cpp
-ReturnType ClassName::FunctionName(Type par_name1, Type par_name2) {
-    DoSomething();
+Result Parser::Parse(Input first_input, Input second_input) {
+    Run();
 }
 
-ReturnType ClassName::ReallyLongFunctionName(
-        Type par_name1, Type par_name2, Type par_name3, Type par_name4) {
-    DoSomething();
+Result Parser::ParseWithAVeryLongName(
+        Input first_input, Input second_input, Input third_input,
+        Input fourth_input) {
+    Run();
 }
 ```
 
@@ -956,7 +957,7 @@ Unused parameters that are obvious from context may be left unnamed.
 Otherwise, comment out their names or mark them `[[maybe_unused]]`.
 
 ```cpp
-void Circle::Rotate(double /*radians*/) {}
+void Circle::Rotate(double /*angle*/) {}
 ```
 
 ### Lambda expressions
@@ -966,12 +967,12 @@ Short lambdas may be written on one line.
 
 ```cpp
 std::set<int> to_remove = {7, 8, 9};
-std::vector<int> digits = {3, 9, 1, 8, 4, 7, 1};
-digits.erase(
+std::vector<int> scores = {5, 0, 8, 2, 9, 0, 4};
+scores.erase(
         std::remove_if(
-                digits.begin(), digits.end(),
+                scores.begin(), scores.end(),
                 [&to_remove](int i) { return to_remove.contains(i); }),
-        digits.end());
+        scores.end());
 ```
 
 ### Floating-point literals
@@ -994,8 +995,8 @@ Write the call on one line if it fits.
 Otherwise, break after the opening parenthesis and indent the arguments by 8 spaces.
 
 ```cpp
-bool result = DoSomething(
-        averyveryveryverylongargument1, argument2, argument3, argument4);
+bool ok = ProcessRequest(
+        first_long_argument_name, second_argument, third_argument, fourth);
 ```
 
 If an argument is a complex expression, consider giving it a name with a local variable.
@@ -1087,9 +1088,9 @@ When a boolean expression does not fit on one line, break after an operator.
 The formatter aligns the continuation of a condition with the opening parenthesis.
 
 ```cpp
-if (this_one_thing > this_other_thing && a_third_thing == a_fourth_thing &&
-    yet_another && last_one) {
-    DoSomething();
+if (request.IsValid() && request.size() < kMaxRequestSize &&
+    user.IsLoggedIn() && !server.IsBusy()) {
+    Handle(request);
 }
 ```
 
@@ -1127,7 +1128,7 @@ Be careful with `{}` on types that have a constructor taking a `std::initializer
 
 ```cpp
 int x = 3;
-std::string name = "Some Name";
+std::string title = "Style guide";
 
 std::vector<int> v(100, 1);  // A vector of 100 ones.
 std::vector<int> w{100, 1};  // A vector with the elements 100 and 1.
@@ -1152,27 +1153,27 @@ Access specifiers are indented by 2 spaces, and members by 4.
 A blank line separates each access section, except the first.
 
 ```cpp
-class MyClass : public OtherClass {
+class Account : public Entity {
   public:
-    MyClass();
-    explicit MyClass(int var);
-    ~MyClass() {}
+    Account();
+    explicit Account(int balance);
+    ~Account() {}
 
-    void SomeFunction();
-    void SomeFunctionThatDoesNothing() {}
+    void Deposit(int amount);
+    void Reset() {}
 
-    void set_some_var(int var) {
-        some_var_ = var;
+    void set_balance(int balance) {
+        balance_ = balance;
     }
-    int some_var() const {
-        return some_var_;
+    int balance() const {
+        return balance_;
     }
 
   private:
-    bool SomeInternalFunction();
+    bool IsOverdrawn();
 
-    int some_var_;
-    int some_other_var_;
+    int balance_;
+    int limit_;
 };
 ```
 
@@ -1182,15 +1183,15 @@ Keep the initializer list on the same line as the signature if it fits.
 Otherwise, break before the colon, indent by 8 spaces, and put each initializer on its own line.
 
 ```cpp
-MyClass::MyClass(int var) : some_var_(var) {
-    DoSomething();
+Account::Account(int balance) : balance_(balance) {
+    Validate();
 }
 
-MyClass::MyClass(int var)
-        : some_var_(var),
-          some_other_var_(var + 1),
-          yet_another_var_(var * 2) {
-    DoSomething();
+Account::Account(int balance)
+        : balance_(balance),
+          limit_(balance + 1),
+          history_size_(balance * 2) {
+    Validate();
 }
 ```
 

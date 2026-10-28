@@ -1,7 +1,13 @@
-# Javascript Style Guide
+# JavaScript Style Guide
 
-A basic javascript style guide, heavily based on the [Google styleguide](https://google.github.io/styleguide/jsguide.html).
-This guide is a changed version of the Google guide, which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and the code samples it takes from that guide are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+A style guide for JavaScript.
+The rules are based on the [Google JavaScript style guide](https://google.github.io/styleguide/jsguide.html), and the text and the examples are our own.
+
+Deviations from the Google guide:
+
+- Blocks are indented by 4 spaces and continuation lines by 8 spaces, following the house rule in `.editorconfig`.
+- All code is written as ES modules.
+  The guide has nothing on `goog.module`, `exports` or other module systems.
 
 ## Table of contents
 
@@ -9,9 +15,11 @@ This guide is a changed version of the Google guide, which is licensed under [CC
 
 ## Source files
 
-### File name
+### File names
 
-File names must be all lowercase and may include underscores (_) or dashes (-), but no additional punctuation. Follow the convention that your project uses. Filenames’ extension must be .js.
+File names are all lowercase and may include underscores (`_`) or dashes (`-`), but no other punctuation.
+Follow the convention that your project uses.
+JavaScript files have the extension `.js`.
 
 ### File encoding: UTF-8
 
@@ -21,347 +29,335 @@ Source files are encoded in UTF-8.
 
 #### Whitespace characters
 
-Aside from the line terminator sequence, the ASCII horizontal space character (0x20) is the only whitespace character that appears anywhere in a source file. This implies that
+Outside of line breaks, the only whitespace character in a source file is the ASCII space (0x20).
+This has two consequences:
 
-- All other whitespace characters in string literals are escaped, and
-- Tab characters are not used for indentation.
+- Tabs are never used for indentation.
+- A whitespace character other than a space inside a string literal is written as an escape sequence.
 
-#### Special escape sequences
+#### Escape sequences
 
-For any character that has a special escape sequence `(\', \", \\, \b, \f, \n, \r, \t, \v)`, that sequence is used rather than the corresponding numeric escape (e.g `\x0a`, `\u000a`, or `\u{a}`). Legacy octal escapes are never used.
+If a character has a short escape sequence (`\'`, `\"`, `\\`, `\b`, `\f`, `\n`, `\r`, `\t` or `\v`), use it instead of a numeric escape such as `\x0a`, `\u000a` or `\u{a}`.
+Never use legacy octal escapes.
 
 #### Non-ASCII characters
 
-For the remaining non-ASCII characters, either the actual Unicode character (e.g. ∞) or the equivalent hex or Unicode escape (e.g. `\u221e`) is used, depending only on which makes the code easier to read and understand.
+For any other non-ASCII character, write the character itself or a Unicode escape, whichever is easier to read.
+A printable character needs no escape.
+Escape characters that are invisible or easy to mistake for another one, and add a comment that says what the escape is.
 
 ```javascript
-/* Best: perfectly clear even without a comment. */
-const units = 'μs';
+// Good: the symbol is printable and speaks for itself.
+const currency = '€';
 
-/* Allowed: but unnecessary as μ is a printable character. */
-const units = '\u03bcs'; // 'μs'
+// Allowed, but the escape only makes the line harder to read.
+const currency = '€';
 
-/* Good: use escapes for non-printable characters with a comment for clarity. */
-return '\ufeff' + content;  // Prepend a byte order mark.
+// Good: a zero-width space cannot be seen, so it is escaped and explained.
+const separator = 'a​b'; // Zero-width space between the letters.
 ```
 
 ## Source file structure
 
-All new source files should be an ECMAScript (ES) module (uses import and export statements).
+Write new files as ES modules, which use `import` and `export`.
 
-Files consist of the following, in order:
+A file has these parts, in this order:
 
-- License or copyright information
-- ES import statements
-- The file’s implementation
-Exactly one blank line separates each section that is present, except the file's implementation, which may be preceded by 1 or 2 blank lines.
+1. License or copyright information, if the file needs it
+1. `import` statements
+1. The implementation
+
+Separate the parts that are present with one blank line.
+Before the implementation, one or two blank lines are fine.
 
 ### License or copyright information
 
-If license or copyright information belongs in a file, it belongs here.
+If a file carries a license or copyright notice, it comes first in the file.
 
 ### ES modules
 
-ES modules are files that use the import and export keywords.
-
 #### Imports
 
-Import statements must not be line wrapped and are therefore an exception to the 80-column limit.
+Never wrap an `import` statement.
+It is exempt from the 80 column limit, because a wrapped import is harder to search for.
 
 ##### Import paths
 
-ES module files must use the import statement to import other ES module files. Do not use `require()` to import an ES module.
+Use `import` to load an ES module, and never `require()`.
+Always write the `.js` extension in the path.
+Import each file once, in a single statement, so that a reader finds everything the file depends on in one place.
 
 ```javascript
-import './sideeffects.js';
+import './polyfills.js';
 
-import * as parent from '../parent.js';
+import * as config from '../config.js';
 
-import {name} from './sibling.js';
+import {render} from './render.js';
 ```
-
-The .js file extension is not optional in import paths and must always be included.
-
-Do not import the same file multiple times. This can make it hard to determine the aggregate imports of a file.
 
 ##### Naming imports
 
-Module import names (`import * as name`) are lowerCamelCase names that are derived from the imported file name.
+A namespace import (`import * as name`) is named in lowerCamelCase after the file that it imports.
 
 ```javascript
-import * as fileOne from '../file-one.js';
-import * as fileTwo from '../file_two.js';
-import * as fileThree from '../filethree.js';
+import * as userStore from './user-store.js';
+import * as retryPolicy from './retry_policy.js';
+import * as httpclient from './httpclient.js';
 
-import * as libString from './lib/string.js';
-import * as math from './math/math.js';
-import * as vectorMath from './vector/math.js';
+import * as dateUtil from './date/util.js';
+import * as stringUtil from './string/util.js';
 ```
 
-Some libraries might commonly use a namespace import prefix that violates this naming scheme, but overbearingly common open source use makes the violating style more readable. The only library that currently falls under this exception is threejs, using the THREE prefix.
+A library may be better known under a name that breaks this rule.
+Use the well-known name in that case, for example `THREE` for three.js.
 
-Default import names are derived from the imported file name.
+Name a default import after the file as well, in the case that fits what the import is.
 
 ```javascript
-import MyClass from '../my-class.js';
-import myFunction from '../my_function.js';
-import SOME_CONSTANT from '../someconstant.js';
+import Logger from './logger.js';
+import parseArgs from './parse_args.js';
+import DEFAULT_PORT from './defaultport.js';
 ```
 
-In general symbols imported via the named import (`import {name}`) should keep the same name. Avoid aliasing imports (`import {SomeThing as SomeOtherThing}`). Prefer fixing name collisions by using a module `import (import *)` or renaming the exports themselves.
+Keep the original name of a named import (`import {name}`), and do not alias it.
+When two modules export the same name, import the modules as namespaces, or rename one of the exports.
 
 ```javascript
-import * as bigAnimals from './biganimals.js';
-import * as domesticatedAnimals from './domesticatedanimals.js';
+import * as csvReader from './csvreader.js';
+import * as jsonReader from './jsonreader.js';
 
-new bigAnimals.Cat();
-new domesticatedAnimals.Cat();
+csvReader.open(path);
+jsonReader.open(path);
 ```
 
-If renaming a named import is needed then use components of the imported module's file name or path in the resulting alias
+If an alias cannot be avoided, build it from the name of the module or its path.
 
 ```javascript
-import {Cat as BigCat} from './biganimals.js';
-import {Cat as DomesticatedCat} from './domesticatedanimals.js';
+import {open as openCsv} from './csvreader.js';
+import {open as openJson} from './jsonreader.js';
 
-new BigCat();
-new DomesticatedCat();
+openCsv(path);
+openJson(path);
 ```
 
 #### Exports
 
-Symbols are only exported if they are meant to be used outside the module. Non-exported module-local symbols are not declared `@private`. There is no prescribed ordering for exported and module-local symbols.
-Use named exports in all code. You can apply the export keyword to a declaration, or use the `export {name};` syntax.
+Export only what other modules need.
+Do not mark the rest as private, because leaving it out of the exports already does that.
+The order of exported and local declarations is up to you.
 
-Do not use default exports. Importing modules must give a name to these values, which can lead to inconsistencies in naming across modules.
+Use named exports only.
+You can put `export` in front of a declaration, or list the names in an `export {name};` statement.
+
+Default exports are not allowed.
+Every importing file picks its own name for a default export, and the names drift apart across the code base.
 
 ```javascript
-// Do not use default exports:
-export default class Foo { ... } // BAD!
+// Bad: a default export.
+export default class Cache {}
 
-// Use named exports:
-export class Foo { ... }
+// Good: a named export.
+export class Cache {}
 
-// Alternate style named exports:
-class Foo { ... }
-export {Foo};
+// Good: a list of exports.
+class Cache {}
+export {Cache};
 ```
 
-Exported variables must not be mutated outside of module initialization.
-
-There are alternatives if mutation is needed, including exporting a constant reference to an object that has mutable fields or exporting accessor functions for mutable data.
+A module does not change an exported variable after it is initialized.
+If other code must be able to change a value, keep the value inside the module and export a function that changes it.
+You can also export a constant reference to an object whose fields change.
 
 ```javascript
-// Good: Rather than export the mutable variables foo and mutateFoo directly,
-// instead make them module scoped and export a getter for foo and a wrapper for
-// mutateFooFunc.
-let /** number */ foo = 0;
-let /** function(number): number */ mutateFooFunc = (foo) => foo + 1;
+// Good: the counter is local, and the module controls how it changes.
+let count = 0;
 
-/** @return {number} */
-export function getFoo() {
-    return foo;
+export function getCount() {
+    return count;
 }
 
-export function mutateFoo() {
-    foo = mutateFooFunc(foo);
-}
-
-/** @param {function(number): number} mutateFoo */
-export function setMutateFoo(mutateFoo) {
-    mutateFooFunc = mutateFoo;
+export function increment() {
+    count += 1;
 }
 ```
 
-export from statements must not be line wrapped and are therefore an exception to the 80-column limit. This applies to both export from flavors.
-
 ```javascript
-export {specificName} from './other.js';
-export * from './another.js';
+// Bad: importers see a value that the module may change at any time.
+export let count = 0;
 ```
 
-Do not create cycles between ES modules, even though the ECMAScript specification allows this. Note that it is possible to create cycles with both the import and export statements.
+Never wrap an `export ... from` statement.
+Like an import, it is exempt from the column limit.
 
 ```javascript
-// a.js
+export {parse} from './parser.js';
+export * from './tokens.js';
+```
+
+Do not let modules depend on each other in a cycle, even though the language permits it.
+Both `import` and `export ... from` can close a cycle.
+
+```javascript
+// a.js imports b.js, and b.js imports a.js: a cycle.
 import './b.js';
 
-// b.js
-import './a.js';
-
-
-// `export from` can cause circular dependencies too!
-export {x} from './c.js';
-
-// c.js
-import './b.js';
-export let x;
+// c.js re-exports from d.js, and d.js imports c.js: also a cycle.
+export {value} from './d.js';
 ```
 
-The actual implementation follows after all dependency information is declared (separated by at least one blank line).
-
-This may consist of any module-local declarations (constants, variables, classes, functions, etc), as well as any exported symbols.
+After the imports comes the implementation, with at least one blank line in between.
+It holds the declarations of the module, such as constants, variables, classes and functions, whether they are exported or not.
 
 ## Formatting
 
-Terminology Note: block-like construct refers to the body of a class, function, method, or brace-delimited block of code. Any array or object literal may optionally be treated as if it were a block-like construct.
+**Terminology note**: A block-like construct is the body of a class, a function, a method or any other pair of braces.
+You may treat an array literal or an object literal as a block-like construct.
 
 ### Braces
 
-Braces are required for all control structures (i.e. if, else, for, do, while, as well as any others), even if the body contains only a single statement. The first statement of a non-empty block must begin on its own line.
+Use braces for every control structure (`if`, `else`, `for`, `do`, `while` and the others), even if the body is one statement.
+The body starts on a new line.
 
-Braces follow the Kernighan and Ritchie style [Egyptian brackets](https://blog.codinghorror.com/new-programming-jargon/#3) for nonempty blocks and block-like constructs:
+Braces on non-empty blocks and block-like constructs follow the K&R style:
 
-- No line break before the opening brace.
-- Line break after the opening brace.
-- Line break before the closing brace.
-- Line break after the closing brace if that brace terminates a statement or the body of a function or class statement, or a class method. Specifically, there is no line break after the brace if it is followed by else, catch, while, or a comma, semicolon, or right-parenthesis.
-
-Example:
+- The opening brace stays on the line of its statement.
+- A line break follows the opening brace.
+- A line break precedes the closing brace.
+- A line break follows the closing brace when it ends a statement, or the body of a function, a class or a method.
+  No line break follows it when the next token is `else`, `catch`, `while`, a comma, a semicolon or a closing parenthesis.
 
 ```javascript
-class InnerClass {
-    constructor() {}
-
-    /** @param {number} foo */
-    method(foo) {
-        if (condition(foo)) {
+class Queue {
+    push(item) {
+        if (this.isFull()) {
             try {
-                // Note: this might fail.
-                something();
-            } catch (err) {
-                recover();
+                this.grow();
+            } catch (error) {
+                this.reject(item);
             }
+        } else {
+            this.items.push(item);
         }
     }
 }
 ```
 
-An empty block or block-like construct may be closed immediately after it is opened, with no characters, space, or line break in between (i.e. {}), unless it is a part of a multi-block statement (one that directly contains multiple blocks: `if/else` or `try/catch/finally`).
-
-Example:
+An empty block may be written as `{}`, with nothing between the braces.
+The exception is a statement with several blocks, such as `if`/`else` or `try`/`catch`/`finally`, where the empty block gets its own lines.
 
 ```javascript
-function doNothing() {}
+function noop() {}
 ```
 
 ### Block indentation: +4 spaces
 
-Each time a new block or block-like construct is opened, the indent increases by four spaces. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block.
-Any array literal may optionally be formatted as if it were a “block-like construct.” For example, the following are all valid (not an exhaustive list):
+Every new block or block-like construct indents its content by four spaces.
+The indentation goes back when the block ends.
+Comments are indented like the code around them.
+
+An array literal may be formatted like a block-like construct.
+All of these are valid:
 
 ```javascript
-const a = [
-    0,
-    1,
+const primes = [
     2,
+    3,
+    5,
 ];
 
-const b =
-        [0, 1, 2];
-const c = [0, 1, 2];
+const evens =
+        [2, 4, 6];
+const odds = [1, 3, 5];
 
-someMethod(foo, [
-    0, 1, 2,
-], bar);
+register(name, [
+    'read', 'write',
+], options);
 ```
 
-Other combinations are allowed, particularly when emphasizing semantic groupings between elements, but should not be used only to reduce the vertical size of larger arrays.
+Choose a layout that groups related elements.
+Do not choose one only to save lines in a long array.
 
-Any object literal may optionally be formatted as if it were a “block-like construct.” The same examples apply as Array literals: optionally block-like. For example, the following are all valid (not an exhaustive list):
+The same holds for an object literal:
 
 ```javascript
-const a = {
-    a: 0,
-    b: 1,
+const point = {
+    x: 1,
+    y: 2,
 };
 
-const b =
-        {a: 0, b: 1};
-const c = {a: 0, b: 1};
+const origin =
+        {x: 0, y: 0};
+const unit = {x: 1, y: 1};
 
-someMethod(foo, {
-    a: 0, b: 1,
-}, bar);
+draw(canvas, {
+    x: 1, y: 2,
+}, style);
 ```
 
-Class literals (whether declarations or expressions) are indented as blocks.
-Do not add semicolons after methods, or after the closing brace of a class declaration (statements—such as assignments—that contain class expressions are still terminated with a semicolon).
-For inheritance, the extends keyword is sufficient unless the superclass is templatized.
-
-Example:
+A class body is indented like any other block.
+Do not put a semicolon after a method or after the closing brace of a class declaration.
+A statement that contains a class expression, such as an assignment, still ends with a semicolon.
 
 ```javascript
-/** @template T */
-class Foo {
-    /** @param {T} x */
-    constructor(x) {
-        /** @type {T} */
-        this.x = x;
+class Shape {
+    constructor(name) {
+        this.name = name;
     }
 }
 
-/** @extends {Foo<number>} */
-class Bar extends Foo {
-    constructor() {
-        super(42);
+class Circle extends Shape {
+    constructor(radius) {
+        super('circle');
+        this.radius = radius;
     }
 }
 
-exports.Baz = class extends Bar {
-    /** @return {number} */
-    method() {
-        return this.x;
+const Square = class extends Shape {
+    area() {
+        return this.side ** 2;
     }
 };
 ```
 
-When declaring an anonymous function in the list of arguments for a function call, the body of the function is indented four spaces more than the preceding indentation depth.
-
-Example:
+The body of a function that is passed as an argument is indented by four spaces relative to the line where the call starts.
 
 ```javascript
-prefix.something.reallyLongFunctionName('whatever', (a1, a2) => {
-    // Indent the function body +4 relative to indentation depth
-    // of the 'prefix' statement one line above.
-    if (a1.equals(a2)) {
-        someOtherLongFunctionName(a1);
+items.forEach((item) => {
+    // Four spaces deeper than `items`.
+    if (item.isReady()) {
+        process(item);
     } else {
-        andNowForSomethingCompletelyDifferent(a2.parrot);
+        skip(item);
     }
 });
 
-some.reallyLongFunctionCall(arg1, arg2, arg3)
-        .thatsWrapped()
-        .then((result) => {
-            // Indent the function body +4 relative to the indentation depth
-            // of the '.then()' call.
-            if (result) {
-                result.use();
+fetchUsers(query)
+        .then(filterActive)
+        .then((users) => {
+            // Four spaces deeper than `.then(`.
+            for (const user of users) {
+                greet(user);
             }
         });
 ```
 
-As with any other block, the contents of a switch block are indented +4.
-
-After a switch label, a newline appears, and the indentation level is increased +4, exactly as if a block were being opened. An explicit block may be used if required by lexical scoping. The following switch label returns to the previous indentation level, as if a block had been closed.
-
-A blank line is optional between a break and the following case.
-
-Example:
+The content of a `switch` is indented by four spaces, and so is the content of each `case` and `default` group.
+The next label returns to the indentation of the previous one.
+A blank line between a `break` and the next `case` is optional.
+You may wrap the group in braces when a declaration needs its own scope.
 
 ```javascript
-switch (animal) {
-    case Animal.BANDERSNATCH:
-        handleBandersnatch();
+switch (command) {
+    case Command.START:
+        start();
         break;
 
-    case Animal.JABBERWOCK:
-        handleJabberwock();
+    case Command.STOP:
+        stop();
         break;
 
     default:
-        throw new Error('Unknown animal');
+        throw new Error(`Unknown command: ${command}`);
 }
 ```
 
@@ -369,265 +365,269 @@ switch (animal) {
 
 #### One statement per line
 
-Each statement is followed by a line-break.
+Put every statement on a line of its own.
 
 #### Semicolons are required
 
-Every statement must be terminated with a semicolon. Relying on automatic semicolon insertion is forbidden.
+End every statement with a semicolon.
+Do not rely on automatic semicolon insertion.
 
 ### Column limit: 80
 
-JavaScript code has a column limit of 80 characters. Except as noted below, any line that would exceed this limit must be line-wrapped, as explained in Line-wrapping.
+A line of code has at most 80 characters.
+Wrap a longer line as described in [Line-wrapping](#line-wrapping).
+The exceptions are `import` and `export ... from` statements, long URLs and long shell commands in comments, and lines that cannot be wrapped.
 
 ### Line-wrapping
 
-**Terminology Note**: Line wrapping is breaking a chunk of code into multiple lines to obey column limit, where the chunk could otherwise legally fit in a single line.
+**Terminology note**: Line-wrapping is splitting code that would fit on one line over several lines because it is too long for the column limit.
 
-There is no comprehensive, deterministic formula showing exactly how to line-wrap in every situation. Very often there are several valid ways to line-wrap the same piece of code.
+No formula gives the right wrapping for every case, and the same code can often be wrapped well in several ways.
+A formatter makes these choices for you, so prefer to use one.
 
 #### Where to break
 
-The prime directive of line-wrapping is: prefer to break at a higher syntactic level.
+Break at the highest syntactic level that gets the line short enough.
 
 ```javascript
-// Preferred:
-currentEstimate =
-        calc(currentEstimate + x * currentEstimate) /
-                2.0;
+// Good: breaks at the assignment.
+const averageResponseTime =
+        totalResponseTime / numberOfResponses;
 
-// Discouraged:
-currentEstimate = calc(currentEstimate + x *
-        currentEstimate) / 2.0;
+// Bad: breaks inside the call and leaves the reader to find the end.
+const averageResponseTime = computeAverage(totalResponseTime,
+        numberOfResponses);
 ```
 
-In the preceding example, the syntactic levels from highest to lowest are as follows: assignment, division, function call, parameters, number constant.
+When the code is broken at an operator, the operator ends the line, not the next one.
+This differs from Google's Java style.
+The dot of a member access is not an operator, so it starts the continuation line.
 
-Operators are wrapped as follows:
+These rules apply as well:
 
-1. When a line is broken at an operator the break comes after the symbol. (Note that this is not the same practice used in Google style for Java.) This does not apply to the dot (.), which is not actually an operator.
-2. A method or constructor name stays attached to the open parenthesis (() that follows it.
-3. A comma (,) stays attached to the token that precedes it.
-4. A line break is never added between a return and the return value as this would change the meaning of the code.
-5. JSDoc annotations with type names break after {. This is necessary as annotations with optional types (@const, @private, @param, etc) do not scan the next line.
+- The name of a function or constructor stays on the same line as its opening parenthesis.
+- A comma stays on the line of the token before it.
+- Never break between `return` and the returned value, as this changes the meaning of the code.
 
 #### Indent continuation lines at least +8 spaces
 
-When line-wrapping, each line after the first (each continuation line) is indented at least +8 from the original line, unless it falls under the rules of block indentation.
+A continuation line is indented by at least eight spaces relative to the first line.
+Block indentation takes precedence where it applies.
 
-When there are multiple continuation lines, indentation may be varied beyond +8 as appropriate.
-In general, continuation lines at a deeper syntactic level are indented by larger multiples of 4, and two lines use the same indentation level if and only if they begin with syntactically parallel elements.
+If there are several continuation lines, you can indent them further.
+Use multiples of four for each deeper syntactic level.
+Two lines have the same indentation only if they start with parallel elements.
 
 ### Whitespace
 
 #### Vertical whitespace
 
-A single blank line appears:
+Use a single blank line:
 
-1. Between consecutive methods in a class or object literal
-Exception: A blank line between two consecutive properties definitions in an object literal (with no other code between them) is optional. Such blank lines are used as needed to create logical groupings of fields.
-2. Within method bodies, sparingly to create logical groupings of statements. Blank lines at the start or end of a function body are not allowed.
-3. Optionally before the first or after the last method in a class or object literal (neither encouraged nor discouraged).
-4. As required by other sections of this document, such as the rules for import and export statements.
+1. Between two methods of a class or an object literal.
+   A blank line between plain properties of an object literal is optional, and groups them.
+1. Inside a function body, to separate groups of statements.
+   Do this sparingly, and never at the start or the end of a body.
+1. Before the first or after the last method of a class or object literal, if you like.
+   Neither is encouraged or discouraged.
+1. Where another section of this guide asks for one, such as around imports.
 
-Multiple consecutive blank lines are permitted, but never required (nor encouraged).
+Several blank lines in a row are allowed, but never required.
 
 #### Horizontal whitespace
 
-Use of horizontal whitespace depends on location, and falls into three broad categories: leading (at the start of a line), trailing (at the end of a line), and internal. Leading whitespace (i.e., indentation) is addressed elsewhere. Trailing whitespace is forbidden.
+Trailing whitespace is forbidden.
+Indentation is covered in [Block indentation: +4 spaces](#block-indentation-4-spaces).
 
-Beyond where required by the language or other style rules, and apart from literals, comments, and JSDoc, a single internal ASCII space also appears in the following places only.
+Beyond what the language requires, and apart from literals and comments, put a single space in these places and nowhere else:
 
-1. Separating any reserved word (such as if, for, or catch) except for function and super, from an open parenthesis (() that follows it on that line.
-2. Separating any reserved word (such as else or catch) from a closing curly brace (}) that precedes it on that line.
-3. Before any open curly brace ({), with two exceptions:
-    - Before an object literal that is the first argument of a function or the first element in an array literal (e.g. foo({a: [{c: d}]})).
-    - In a template expansion, as it is forbidden by the language (e.g. valid: `ab${1 + 2}cd`, invalid: `xy$ {3}z`).
-4. On both sides of any binary or ternary operator.
-5. After a comma (`,`) or semicolon (`;`). Note that spaces are never allowed before these characters.
-6. After the colon (`:`) in an object literal.
-7. On both sides of the double slash (`//`) that begins an end-of-line comment. Here, multiple spaces are allowed, but not required.
-8. After an open-block comment character and on both sides of close characters (e.g. for short-form type declarations, casts, and parameter name comments: `this.foo = /** @type {number} \*/ (bar);` or `function(/** string \*/ foo) {;` or `baz(/* buzz= */ true))`.
+1. Between a keyword such as `if`, `for` or `catch` and the parenthesis after it.
+   `function` and `super` are the exceptions.
+1. Between a closing brace and a keyword such as `else` or `catch` after it.
+1. Before an opening brace, except when:
+    - The brace opens an object literal that is the first argument of a call or the first element of an array, as in `foo({a: [{b: c}]})`.
+    - The brace follows `$` in a template literal, where a space is a syntax error.
+1. On both sides of a binary or ternary operator.
+1. After a comma or a semicolon, and never before them.
+1. After the colon in an object literal.
+1. On both sides of the `//` that starts a comment at the end of a line.
+   More than one space is fine.
+1. Inside block comments that sit in code, such as a comment with a parameter name: `connect(host, /* secure= */ true)`.
 
 #### Horizontal alignment: discouraged
 
-**Terminology Note**: Horizontal alignment is the practice of adding a variable number of additional spaces in your code with the goal of making certain tokens appear directly below certain other tokens on previous lines.
+**Terminology note**: Horizontal alignment is padding lines with extra spaces so that tokens line up in a column.
 
-This practice is permitted, but it is generally discouraged. It is not even required to maintain horizontal alignment in places where it was already used.
-
-Here is an example without alignment, followed by one with alignment. Both are allowed, but the latter is discouraged:
+Alignment is allowed but discouraged, and you do not have to keep existing alignment.
+It makes diffs larger, because adding a longer name means re-padding the other lines.
 
 ```javascript
-{
-    tiny: 42, // this is great
-    longer: 435, // this too
+// Good:
+const sizes = {
+    small: 8,
+    medium: 16,
+    extraLarge: 32,
 };
 
-{
-    tiny:   42,  // permitted, but future edits
-    longer: 435, // may leave it unaligned
+// Allowed, but discouraged:
+const sizes = {
+    small:      8,
+    medium:     16,
+    extraLarge: 32,
 };
 ```
 
 #### Function arguments
 
-Prefer to put all function arguments on the same line as the function name.
-If doing so would exceed the 80-column limit, the arguments must be line-wrapped in a readable way.
-To save space, you may wrap as close to 80 as possible, or put each argument on its own line to enhance readability.
+Keep the arguments on the line of the function name when they fit.
+When they do not, wrap them so that they stay readable.
 Continuation lines are indented by eight spaces.
-Aligning to the parenthesis is allowed, but discouraged.
-Below are the most common patterns for argument wrapping:
+Lining them up with the opening parenthesis is allowed but discouraged.
+
+These are the usual patterns:
 
 ```javascript
-// Arguments start on a new line, indented eight spaces. Preferred when the
-// arguments don't fit on the same line with the function name (or the keyword
-// "function") but fit entirely on the second line. Works with very long
-// function names, survives renaming without reindenting, low on space.
-doSomething(
-        descriptiveArgumentOne, descriptiveArgumentTwo, descriptiveArgThree) {
-    // …
-}
+// The arguments fit on one continuation line.
+const total = addAll(
+        firstDescriptiveValue, secondDescriptiveValue, thirdDescriptiveValue);
 
-// If the argument list is longer, wrap at 80. Uses less vertical space,
-// but violates the rectangle rule and is thus not recommended.
-doSomething(veryDescriptiveArgumentNumberOne, veryDescriptiveArgumentTwo,
-        tableModelEventHandlerProxy, artichokeDescriptorAdapterIterator) {
-    // …
-}
+// Many arguments: fill each line up to the limit.
+const total = addAll(firstDescriptiveValue, secondDescriptiveValue,
+        thirdDescriptiveValue, fourthDescriptiveValue, fifthDescriptiveValue);
 
-// Eight-space, one argument per line.  Works with long function names,
-// survives renaming, and emphasizes each argument.
-doSomething(
-        veryDescriptiveArgumentNumberOne,
-        veryDescriptiveArgumentTwo,
-        tableModelEventHandlerProxy,
-        artichokeDescriptorAdapterIterator) {
-    // …
-}
+// One argument per line puts the emphasis on each of them.
+const total = addAll(
+        firstDescriptiveValue,
+        secondDescriptiveValue,
+        thirdDescriptiveValue,
+        fourthDescriptiveValue);
 ```
+
+The first pattern is the one to prefer.
+It survives a rename of the function and uses little space.
+Filling lines to the limit saves lines, but it hides where each argument starts, so use it with care.
 
 ### Grouping parentheses: recommended
 
-Optional grouping parentheses are omitted only when the author and reviewer agree that there is no reasonable chance that the code will be misinterpreted without them, nor would they have made the code easier to read.
-It is not reasonable to assume that every reader has the entire operator precedence table memorized.
+Leave out optional parentheses only if both the author and the reviewer agree that nobody can misread the expression without them.
+Do not expect readers to know the whole precedence table.
 
-Do not use unnecessary parentheses around the entire expression following `delete, typeof, void, return, throw, case, in, of, or yield`.
-
-Parentheses are required for type casts: `/** @type {!Foo} */ (foo)`.
+Do not wrap the whole operand of `delete`, `typeof`, `void`, `return`, `throw`, `case`, `in`, `of` or `yield` in parentheses.
 
 ### Comments
 
 #### Block comment style
 
-Block comments are indented at the same level as the surrounding code. They may be in `/* … */` or `//`-style. For multi-line `/* … */` comments, subsequent lines must start with `*` aligned with the `*` on the previous line, to make comments obvious with no extra context.
+A block comment has the indentation of the code around it.
+It can use `/* ... */` or consecutive `//` lines.
+In a `/* ... */` comment, each line after the first starts with an asterisk that lines up with the first one.
+
+Do not draw boxes around comments with asterisks or other characters.
 
 ```javascript
 /*
- * This is
- * okay.
+ * A comment on
+ * several lines.
  */
 
-// And so
-// is this.
+// Or the same
+// with slashes.
 
-/* This is fine, too. */
+/* A short one. */
 ```
 
-Comments are not enclosed in boxes drawn with asterisks or other characters.
+#### Parameter name comments
 
-#### Parameter Name Comments
-
-“Parameter name” comments should be used whenever the value and method name do not sufficiently convey the meaning, and refactoring the method to be clearer is infeasible. Their preferred format is before the value with "=":
+Add a comment with the parameter name when the argument alone does not say what it means and renaming or restructuring the function is not an option.
+Put the comment before the value and end the name with `=`.
 
 ```javascript
-someFunction(obviousParam, /* shouldRender= */ true, /* name= */ 'hello');
+connect(host, /* timeoutSeconds= */ 30, /* secure= */ true);
 ```
 
-For consistency with surrounding code you may put them after the value without "=":
+To match the code around it, you may write the comment after the value, without the `=`.
 
 ```javascript
-someFunction(obviousParam, true /* shouldRender */, 'hello' /* name */);
+connect(host, 30 /* timeoutSeconds */, true /* secure */);
 ```
 
 ## Language features
 
-JavaScript includes many dubious (and even dangerous) features. This section delineates which features may or may not be used, and any additional constraints on their use.
+JavaScript has a number of features that are confusing or dangerous.
+This section lists which of them you can use and under which conditions.
 
-Language features which are not discussed in this style guide may be used with no recommendations of their usage.
+A feature that this guide does not mention is allowed without further rules.
 
 ### Local variable declarations
 
-Declare all local variables with either const or let. Use const by default, unless a variable needs to be reassigned. The var keyword must not be used. Every local variable declaration declares only one variable: declarations such as `let a = 1, b = 2;` are not used.
+Declare local variables with `const` or `let`, and never with `var`.
+Use `const` unless the variable is reassigned.
+Declare one variable per statement, so `let a = 1, b = 2;` is not allowed.
 
 ### Array literals
 
-Include a trailing comma whenever there is a line break between the final element and the closing bracket.
-
-Example:
+Put a trailing comma after the last element when the closing bracket is on its own line.
 
 ```javascript
-const values = [
-    'first value',
-    'second value',
+const weekend = [
+    'saturday',
+    'sunday',
 ];
 ```
 
-Do not use the variadic Array constructor
-The constructor is error-prone if arguments are added or removed. Use a literal instead.
-
-Disallowed:
-
-```javascript
-const a1 = new Array(x1, x2, x3);
-const a2 = new Array(x1, x2);
-const a3 = new Array(x1);
-const a4 = new Array();
-```
-
-This works as expected except for the third case: if x1 is a whole number then a3 is an array of size x1 where all elements are undefined. If x1 is any other number, then an exception will be thrown, and if it is anything else then it will be a single-element array.
-
-Instead, write:
+Do not call the `Array` constructor with elements.
+Its meaning depends on the number and the type of the arguments, so a change to the arguments can silently change what it does.
+With a single numeric argument it creates an empty array of that length, and with a non-integer number it throws.
 
 ```javascript
-const a1 = [x1, x2, x3];
-const a2 = [x1, x2];
-const a3 = [x1];
-const a4 = [];
+// Bad:
+const none = new Array();
+const one = new Array(item);
+const two = new Array(first, second);
+
+// Good:
+const none = [];
+const one = [item];
+const two = [first, second];
 ```
 
-Explicitly allocating an array of a given length using new Array(length) is allowed when appropriate.
-Do not define or use non-numeric properties on an array (other than length). Use a Map (or Object) instead.
+Creating an array with a fixed length by `new Array(length)` is fine when that is what you want.
+
+Do not add properties to an array other than its elements and `length`.
+Use a `Map` or an object for named values.
 
 ### Object literals
 
-Include a trailing comma whenever there is a line break between the final property and the closing brace.
-While `Object` does not have the same problems as `Array`, it is still disallowed for consistency. Use an object literal `({} or {a: 0, b: 1, c: 2})` instead.
+Put a trailing comma after the last property when the closing brace is on its own line.
+
+Do not call the `Object` constructor, because the literal does the same and is shorter.
+Use `{}` or `{a: 1, b: 2}`.
 
 ### Method shorthand
 
-Methods can be defined on object literals using the method shorthand ({method() {… }}) in place of a colon immediately followed by a function or arrow function literal.
-
-Example:
+In an object literal, write a method with the shorthand `name() {...}` rather than `name: function() {...}` or `name: () => {...}`.
 
 ```javascript
-return {
-    stuff: 'candy',
-    method() {
-        return this.stuff;  // Returns 'candy'
+const counter = {
+    value: 0,
+    next() {
+        this.value += 1;
+        return this.value;
     },
 };
 ```
 
-Note that `this` in a method shorthand or `function` refers to the object literal itself whereas `this` in an arrow function refers to the scope outside the object literal.
-
-Example:
+In a shorthand method, and in a `function`, `this` is the object literal.
+In an arrow function, `this` is whatever it was outside of the literal.
 
 ```javascript
-class {
-    getObjectLiteral() {
-        this.stuff = 'fruit';
+class Widget {
+    describe() {
+        this.label = 'widget';
         return {
-            stuff: 'candy',
-            method: () => this.stuff,  // Returns 'fruit'
+            label: 'object',
+            // `this.label` here is 'widget', the label of the Widget.
+            getLabel: () => this.label,
         };
     }
 }
@@ -635,150 +635,147 @@ class {
 
 ### Classes
 
-Constructors are optional. Subclass constructors must call `super()` before setting any fields or otherwise accessing `this`. Interfaces should declare non-method properties in the constructor.
+A class does not need a constructor.
+In a subclass, call `super()` before anything that sets a field or reads `this`.
 
 ### Functions
 
-Top-level functions may be defined directly on the `exports` object, or else declared locally and optionally exported.
-
-Examples:
+Declare a top-level function in one of two ways.
+Either declare it with `function`, or assign an arrow function to a `const`.
+Export it with `export` when other modules use it.
 
 ```javascript
-/** @param {string} str */
-exports.processString = (str) => {
-    // Process the string.
-};
+export function slugify(text) {
+    return text.trim().toLowerCase().replaceAll(' ', '-');
+}
 
-/** @param {string} str */
-const processString = (str) => {
-    // Process the string.
-};
-
-exports = {processString};
+const isBlank = (text) => text.trim() === '';
 ```
 
 #### Arrow functions
 
-Arrow functions provide a concise function syntax and simplify scoping `this` for nested functions. Prefer arrow functions over the function keyword for nested functions
-Prefer arrow functions over other `this` scoping approaches such as `f.bind(this)` and `const self = this`.
-Arrow functions are particularly useful for calling into callbacks as they permit explicitly specifying which parameters to pass to the callback whereas binding will blindly pass along all parameters.
-The left-hand side of the arrow contains zero or more parameters. Parentheses around the parameters are optional if there is only a single non-destructured parameter. When parentheses are used, inline parameter types may be specified.
-The right-hand side of the arrow contains the body of the function.
-By default the body is a block statement (zero or more statements surrounded by curly braces).
-The body may also be an implicitly returned single expression if either: the program logic requires returning a value, or the `void` operator precedes a single function or method call (using `void` ensures `undefined` is returned, prevents leaking values, and communicates intent).
-The single expression form is preferred if it improves readability (e.g., for short or simple expressions).
+Arrow functions are short, and they keep the `this` of the code around them.
+Prefer them to `function` expressions for nested functions.
+Prefer them to `bind(this)` and to saving `this` in a variable such as `self`.
+They are also a good fit for callbacks, because they let you decide which arguments reach the callee, where `bind` forwards all of them.
 
-Examples:
+You may leave out the parentheses around a single parameter that is not destructured.
+
+The body is a block by default.
+Use a single expression as the body, which is then returned, in two cases:
+
+- The code needs the value.
+- The expression is a call that is preceded by `void`, because `void` makes sure that the function returns `undefined` and no value leaks out.
+
+Prefer the single expression when it is short and simple.
 
 ```javascript
-/**
-* Arrow functions can be documented just like normal functions.
-* @param {number} numParam A number to add.
-* @param {string} strParam Another number to add that happens to be a string.
-* @return {number} The sum of the two parameters.
-*/
-const moduleLocalFunc = (numParam, strParam) => numParam + Number(strParam);
+// The value is needed.
+const total = prices.reduce((sum, price) => sum + price, 0);
 
-// Uses the single expression syntax with `void` because the program logic does
-// not require returning a value.
-getValue((result) => void alert(`Got ${result}`));
+// The value is not needed, so `void` drops it.
+button.addEventListener('click', () => void save(form));
 
-class CallbackExample {
-    constructor() {
-        /** @private {number} */
-        this.cachedValue_ = 0;
-
-        // For inline callbacks, you can use inline typing for parameters.
-        // Uses a block statement because the value of the single expression
-        // should not be returned and the expression is not a single function
-        // call.
-        getNullableValue((/** ?number */ result) => {
-            this.cachedValue_ = result == null ? 0 : result;
-        });
-    }
-}
+// A block, because the body has more than a call.
+button.addEventListener('click', () => {
+    form.disabled = true;
+    save(form);
+});
 ```
 
 ### String literals
 
-Ordinary string literals are delimited with single quotes (`'`), rather than double quotes (`"`).
-Ordinary string literals may not span multiple lines.
-Do not use line continuations (that is, ending a line inside a string literal with a backslash) in either ordinary or template string literals. Even though ES5 allows this, it can lead to tricky errors if any trailing whitespace comes after the slash, and is less obvious to readers.
+Use single quotes (`'`) for ordinary strings, not double quotes (`"`).
+An ordinary string stays on one line.
+
+Do not end a line inside a string with a backslash to continue it on the next line, in an ordinary string or in a template literal.
+A space after the backslash breaks the code, and readers do not expect the feature.
 
 #### Template literals
 
-Use template literals (delimited with `) over complex string concatenation, particularly if multiple string literals are involved. Template literals may span multiple lines.
-If a template literal spans multiple lines, it does not need to follow the indentation of the enclosing block, though it may if the added whitespace does not matter.
-
-Example:
+Use a template literal (written with backticks) instead of concatenation when the result is built from several parts.
+A template literal may span several lines.
+The continuation lines do not need to follow the indentation of the block, because their leading spaces are part of the string.
 
 ```javascript
-function arithmetic(a, b) {
-    return `Here is a table of arithmetic operations:
-${a} + ${b} = ${a + b}
-${a} - ${b} = ${a - b}
-${a} * ${b} = ${a * b}
-${a} / ${b} = ${a / b}`;
+function describe(user) {
+    return `${user.name} (${user.email}) joined on ${user.joinedAt}.
+They have ${user.posts.length} posts.`;
 }
 ```
 
 ### Number literals
 
-Numbers may be specified in decimal, hex, octal, or binary. Use exactly `0x`, `0o`, and `0b` prefixes, with lowercase letters, for hex, octal, and binary, respectively. Never include a leading zero unless it is immediately followed by `x`, `o`, or `b`.
+Write numbers in decimal, hexadecimal, octal or binary form.
+The prefixes are `0x`, `0o` and `0b`, in lowercase.
+A number never has a leading zero, unless the zero is part of one of these prefixes.
 
 ### Control structures
 
 #### For loops
 
-With ES6, the language now has three different kinds of for loops. All may be used, though `for-of` loops should be preferred when possible.
+The language has three kinds of `for` loop, and you can use any of them.
+Prefer `for ... of` when it does the job.
 
 #### Exceptions
 
-Exceptions are an important part of the language and should be used whenever exceptional cases occur. Always throw `Error` or subclasses of `Error`. Never throw string literals or other objects. Always use `new` when constructing an `Error`.
-This treatment extends to `Promise` rejection values as `Promise.reject(obj)` is equivalent to `throw obj;` in async functions.
-Custom exceptions provide a great way to convey additional error information from functions. They should be defined and used wherever the native `Error` type is insufficient.
-Prefer throwing exceptions over ad-hoc error-handling approaches (such as passing an error container reference type, or returning an object with an error property).
+Use exceptions to report exceptional cases.
+Throw `Error` or a subclass of it, create it with `new`, and never throw a string or another value.
+A promise is rejected with the same rule, because `Promise.reject(value)` works like `throw value` in an `async` function.
+
+Define your own subclass of `Error` when callers need information that `Error` cannot carry.
+
+Throw an exception instead of using an ad-hoc scheme, such as an out parameter that receives the error or a result object with an `error` field.
 
 #### Switch statements
 
-Each statement group consists of one or more switch labels (either `case FOO:` or `default:`), followed by one or more statements.
-Within a switch block, each statement group either terminates abruptly (with a `break`, `return` or `throw` exception), or is marked with a comment to indicate that execution will or might continue into the next statement group.
-Any comment that communicates the idea of fall-through is sufficient (typically `// fall through`).
-This special comment is not required in the last statement group of the switch block.
+A `switch` consists of statement groups.
+Each group has one or more labels (`case x:` or `default:`) followed by one or more statements.
 
-Example:
+A group must not run into the next one by accident.
+It either ends with `break`, `return` or `throw`, or it has a comment that says it falls through.
+Any comment that gets the point across will do, and `// fall through` is the usual one.
+The last group does not need such a comment.
 
 ```javascript
-switch (input) {
+switch (level) {
+    case 0:
     case 1:
-    case 2:
-        prepareOneOrTwo();
+        warnLow();
     // fall through
-    case 3:
-        handleOneTwoOrThree();
+    case 2:
+        logLevel(level);
         break;
     default:
-        handleLargeNumber(input);
+        warnUnknown(level);
 }
 ```
 
-Each switch statement includes a `default` statement group, even if it contains no code. The `default` statement group must be last.
+Every `switch` has a `default` group, even if it is empty, and it comes last.
 
 ### this
 
-Only use `this` in class constructors and methods, in arrow functions defined within class constructors and methods, or in functions that have an explicit `@this` declared in the immediately-enclosing function’s JSDoc.
+Use `this` only in class constructors and methods, and in arrow functions inside them.
+You may also use it in a function that is called with an explicit `this`, if a comment documents that.
 
-Never use `this` to refer to the global object, the context of an `eval`, the target of an event, or unnecessarily `call()` or `apply()` functions.
+Never use `this` to refer to the global object, to the context of `eval` or to the target of an event.
+Do not use `call()` or `apply()` when there is no need for them.
 
-### Equality Checks
+### Equality checks
 
-Use identity operators (`===`/`!==`) except in the cases documented below.
-Catching both null and undefined values:
+Compare with the strict operators `===` and `!==`.
+
+The one exception is a comparison with `null`.
+`x == null` is true for both `null` and `undefined`, and false for the other falsy values such as `0` and the empty string.
 
 ```javascript
-if (someObjectOrPrimitive == null) {
-    // Checking for null catches both null and undefined for objects and
-    // primitives, but does not catch other falsy values like 0 or the empty
-    // string.
+if (value == null) {
+    // No value was given: `null` or `undefined`.
 }
 ```
+
+## See also
+
+- [Google JavaScript style guide](https://google.github.io/styleguide/jsguide.html)
+- [TypeScript style guide](../typescript/Typescript.md)
+- [MDN JavaScript reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
