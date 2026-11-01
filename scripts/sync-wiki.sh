@@ -33,4 +33,7 @@ for file in "${repo_dir}/README.md" "${repo_dir}"/src/*/*.md; do
         > "${wiki_dir}/${name}.md"
 done
 
-cp "${repo_dir}"/src/*/*.jpeg "${wiki_dir}/"
+for image in "${repo_dir}"/src/*/*.jpeg; do
+    [[ -f "${image}" ]] || continue
+    cp "${image}" "${wiki_dir}/"
+done
