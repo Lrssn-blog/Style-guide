@@ -111,6 +111,24 @@ This document is placed in the .github folder.
 This document describes how to contribute to the repository.
 This includes creating pull requests, creating issues and how to check and structure the code.
 
+#### TODO
+
+`TODO.md` in the root of the repository lists every feature that has been suggested for the project, so it is easy to see what has been proposed and to pick new work.
+
+- Every task has a number, written `T1`, `T2` and so on, as its permanent reference.
+  Numbers are never reused or renumbered, and tasks are never deleted.
+  Write `T<n>`, not `#<n>`, because GitHub and Gitea turn `#<n>` into a link to an issue.
+- Open tasks are task list items (`- [ ]`) grouped under headings by area.
+  The task's number and name are in bold, followed by one sentence on what it is and why the project wants it: `- [ ] **T1 Stopwatch**: …`.
+- A task that is ruled out moves to a `Doesn't fit` section with the reason, keeping its number but losing its checkbox.
+- A finished task is ticked (`- [x]`) and moves to a `Done` section at the end, with a link to its issue.
+
+A task goes through three states:
+
+1. **Suggested**: added to `TODO.md` under the next free number, together with its [suggested implementation](#implementations) when there is one.
+2. **Chosen**: the task stays in `TODO.md` and gets an entry in the [roadmap](#roadmap) with its issue.
+3. **Finished**: ticked and moved to `Done` in `TODO.md`, and removed from the roadmap.
+
 ## Commits
 
 - Each commit should be a single *logical change*.
@@ -199,6 +217,26 @@ All submodules are to be stored in a separate folder.
 
 All documentation should be put in the `docs` folder in the root of the repository.
 Both markdown and compiled for web or wiki.
+
+#### Roadmap
+
+`docs/roadmap.md` lists the [TODO](#todo) tasks chosen for implementation, in the order they will be built.
+Each entry names the task and links its issue, for example `T1 Stopwatch: #365`.
+A task leaves the roadmap when it is finished.
+
+#### Implementations
+
+`docs/implementations/` holds a suggested way to build each [TODO](#todo) task, one file per task named after its number and name: `T1-stopwatch.md`.
+A suggestion is not a decision: whoever implements the task may follow it, change it or ignore it, and the file stays either way.
+When a file exists, the task's name in `TODO.md` links to it.
+
+A suggested implementation has these sections:
+
+- **Summary**: one or two sentences on what the feature does.
+- **API sketch**: the public interface, following the project's conventions.
+- **Approach**: what it is built on, and any new dependency with its license.
+- **Tests**: what the tests should prove.
+- **Open questions**: what the implementer still has to decide.
 
 ## Issues
 

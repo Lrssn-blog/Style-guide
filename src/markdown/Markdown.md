@@ -42,6 +42,7 @@ Repository level documents that tools and people look for use upper case names:
 - `CODE_OF_CONDUCT.md`
 - `LICENSE.md`
 - `AUTHORS.md`
+- `TODO.md`
 
 Other documents use lowercase names with hyphens between words, for example `docs/getting-started.md`.
 Follow the convention of the repository you are working in.
