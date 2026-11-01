@@ -822,6 +822,28 @@ Macros are named in `UPPER_SNAKE_CASE`, with the project prefix.
 #define LRSSN_ROUND(x) ...
 ```
 
+### Exceptions to the naming rules
+
+A library whose domain already has its own naming may use it in its public API, where its users would otherwise have to translate.
+For example, a math library for graphics can follow GLSL and the standard library, whose names its users already read in shaders and in `<cmath>`.
+
+```cpp
+namespace lrssn::math {
+
+constexpr double pi = 3.141592653589793;
+
+enum class Containment { outside, intersecting, inside };
+
+constexpr float dot(Vec3 a, Vec3 b) {
+    return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+}  // namespace lrssn::math
+```
+
+Apply the domain's naming to the whole public API, not to some names only, and record the exception in an ADR.
+Names that are not part of the API, such as private members and helpers, still follow the rules above.
+
 ## Comments
 
 ### Comment style
@@ -1335,13 +1357,28 @@ endif()
 
 ### Testing
 
-Write tests with [GoogleTest](https://github.com/google/googletest).
-Test suites and test names use `PascalCase`, and each test checks one behavior.
+Write tests with [GoogleTest](https://github.com/google/googletest) or [Catch2](https://github.com/catchorg/Catch2), and use one of them for the whole project.
+Each test checks one behavior.
+
+With GoogleTest, test suites and test names use `PascalCase`.
 
 ```cpp
 TEST(UserServiceTest, ReturnsCachedUser) {
     UserService service(std::make_unique<FakeStorage>());
     EXPECT_EQ(service.LoadUser("1")->name(), "Alice");
+}
+```
+
+Catch2 suits libraries that are tested at compile time or at several types: `STATIC_CHECK` checks a `constexpr` result while the test compiles, and `TEMPLATE_TEST_CASE` runs one test for each type.
+With Catch2, test names are sentences that state the behavior.
+
+```cpp
+TEMPLATE_TEST_CASE("Gcd divides both arguments", "", int32_t, int64_t) {
+    CHECK(Gcd(TestType{12}, TestType{18}) == TestType{6});
+}
+
+TEST_CASE("Gcd can be evaluated at compile time") {
+    STATIC_CHECK(Gcd(12, 18) == 6);
 }
 ```
 
