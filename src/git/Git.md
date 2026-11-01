@@ -237,6 +237,11 @@ A suggested implementation has these sections:
 - **Approach**: what it is built on, and any new dependency with its license.
 - **Tests**: what the tests should prove.
 - **Open questions**: what the implementer still has to decide.
+- **Recommended reading**: notable or recommended papers relevant to the task, along with useful specifications and reference documentation.
+
+Add relevant papers to the implementation note's recommended reading rather than leaving them only in a discussion or issue.
+For each paper, give its title, authors and publication year, link to the original publication or an author-hosted copy, and briefly explain how it helps with the task.
+Use primary specifications and documentation when those are the most useful references; a note does not need a paper when none is relevant.
 
 ## Issues
 
