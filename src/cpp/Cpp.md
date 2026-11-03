@@ -31,10 +31,8 @@ Most of the rules in this guide serve one of these goals:
 
 ## C++ version
 
-Code targets C++20.
+Code targets C++23.
 Do not use non-standard compiler extensions.
-
-Features from C++23, such as `std::expected` and `std::print`, may be used in projects that are built with C++23.
 
 ## Source files
 
@@ -472,7 +470,7 @@ Exceptions may be used, which is a deviation from the Google guide.
 This guide allows exceptions so that an error the caller cannot handle locally can travel up to code that can, without a status check at every level.
 
 - Throw an exception for errors that the caller cannot handle locally, such as a broken invariant or a failed resource that the program depends on.
-- Return `std::optional`, or `std::expected` in C++23, for failures that are part of normal operation, such as a lookup that finds nothing or input that does not parse.
+- Return `std::optional` or `std::expected` for failures that are part of normal operation, such as a lookup that finds nothing or input that does not parse.
 - Throw types derived from `std::exception`, usually `std::runtime_error`, `std::invalid_argument` or your own subclasses.
 - Throw by value and catch by `const` reference.
 - Never let an exception leave a destructor.
@@ -1341,7 +1339,7 @@ Use [CMake](https://cmake.org/) to build projects, and set the standard for the 
 cmake_minimum_required(VERSION 3.25)
 project(lrssn_example LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
